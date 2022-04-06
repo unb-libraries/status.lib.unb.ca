@@ -5,7 +5,7 @@ metadata:
     app: nginx
     tier: go
     uri: status.lib.unb.ca
-  name: go-lib-unb-ca
+  name: status-lib-unb-ca
   namespace: prod
 spec:
   selector:
@@ -23,7 +23,7 @@ spec:
     metadata:
       labels:
         app: nginx
-        tier: go
+        tier: status
         uri: status.lib.unb.ca
     spec:
       nodeSelector:
@@ -36,7 +36,7 @@ spec:
               value: prod
           image: "||DEPLOYMENTIMAGE||"
           imagePullPolicy: Always
-          name: go-lib-unb-ca
+          name: status-lib-unb-ca
           ports:
             -
               containerPort: 80

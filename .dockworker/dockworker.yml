@@ -5,7 +5,7 @@ dockworker:
     finish_marker: '99_z_notify_user_URI'
     project_prefix: STATUS
     upstream_images:
-      - ghcr.io/unb-libraries/nginx:1.x
+      - ghcr.io/unb-libraries/nginx:2.x
     uuid: 3115
   deployment:
     environments:
