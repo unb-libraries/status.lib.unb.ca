@@ -1,0 +1,21 @@
+dockworker:
+  version: '4.0'
+  application:
+    name: status.lib.unb.ca
+    finish_marker: '99_z_notify_user_URI'
+    project_prefix: STATUS
+    upstream_images:
+      - ghcr.io/unb-libraries/nginx:1.x
+    uuid: 3115
+  deployment:
+    environments:
+      - prod
+  github:
+    repo: status.lib.unb.ca
+    owner: unb-libraries
+  image:
+    push_branches:
+      - prod
+    name: ghcr.io/unb-libraries/status.lib.unb.ca
+    date_tag_image: true
+    repository: ghcr

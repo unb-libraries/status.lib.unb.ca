@@ -1,0 +1,22 @@
+version: '3.6'
+
+services:
+  status.lib.unb.ca:
+    build:
+      context: .
+    restart: always
+    container_name: status.lib.unb.ca
+    expose:
+      - "80"
+    ports:
+      - "3115:80"
+    environment:
+      - LOCAL_HOSTNAME=local-status.lib.unb.ca
+      - LOCAL_PORT=3115
+    networks:
+      - status.lib.unb.ca
+
+networks:
+  status.lib.unb.ca:
+    name: status.lib.unb.ca
+
