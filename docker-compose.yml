@@ -1,9 +1,8 @@
-
 services:
   status.lib.unb.ca:
     build:
       context: .
-    restart: always
+    restart: unless-stopped
     container_name: status.lib.unb.ca
     expose:
       - "80"
@@ -14,8 +13,6 @@ services:
       - LOCAL_PORT=3115
     networks:
       - status.lib.unb.ca
-
 networks:
   status.lib.unb.ca:
     name: status.lib.unb.ca
-
