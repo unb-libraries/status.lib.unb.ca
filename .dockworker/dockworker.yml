@@ -9,12 +9,14 @@ dockworker:
     uuid: 3115
   deployment:
     environments:
+      - dev
       - prod
   github:
     repo: status.lib.unb.ca
     owner: unb-libraries
   image:
     push_branches:
+      - dev
       - prod
     name: ghcr.io/unb-libraries/status.lib.unb.ca
     date_tag_image: true

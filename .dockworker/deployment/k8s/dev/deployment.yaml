@@ -5,13 +5,13 @@ metadata:
     app: nginx
     instance: status.lib.unb.ca
     tier: status
-    uri: status.lib.unb.ca
+    uri: dev-status.lib.unb.ca
   name: status-lib-unb-ca
-  namespace: prod
+  namespace: dev
 spec:
   selector:
     matchLabels:
-      uri: status.lib.unb.ca
+      uri: dev-status.lib.unb.ca
   replicas: 1
   revisionHistoryLimit: 2
   minReadySeconds: 30
@@ -26,16 +26,16 @@ spec:
         app: nginx
         instance: status.lib.unb.ca
         tier: status
-        uri: status.lib.unb.ca
+        uri: dev-status.lib.unb.ca
     spec:
       nodeSelector:
-        deployenv: prod
+        deployenv: dev
       containers:
         -
           env:
             -
               name: DEPLOY_ENV
-              value: prod
+              value: dev
           image: "||DEPLOYMENTIMAGE||"
           imagePullPolicy: Always
           name: status-lib-unb-ca
@@ -46,7 +46,7 @@ spec:
             -
               mountPath: /app/html
               name: status-persistent-storage
-      priorityClassName: high-priority-services
+      priorityClassName: dev-high-priority-services
       imagePullSecrets:
         -
           name: github-container-registry-auth
