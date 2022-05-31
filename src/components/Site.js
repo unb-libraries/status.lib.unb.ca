@@ -34,7 +34,7 @@ const load = async spec => {
 }
 
 function Site(props) {
-  const [loaded, setLoaded] = useState(false)
+  const [refresh, setRefresh] = useState(true)
   const [site, setSite] = useState({
     id: 'none',
     title: 'Unknown Site',
@@ -42,11 +42,14 @@ function Site(props) {
     timestamp: 0,
   })
 
-  if (!loaded) {
+  if (refresh) {
     load(props.spec)
     .then(site => {
       setSite(site)
-      setLoaded(true)
+      setRefresh(false)
+      setTimeout(() => {
+        setRefresh(true)
+      }, 60000)
     })
   }
 
