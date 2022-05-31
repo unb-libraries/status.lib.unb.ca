@@ -34,6 +34,7 @@ const load = async spec => {
 }
 
 function Site(props) {
+  const [loaded, setLoaded] = useState(false)
   const [site, setSite] = useState({
     id: 'none',
     title: 'Unknown Site',
@@ -41,11 +42,13 @@ function Site(props) {
     timestamp: 0,
   })
 
-  
-  load(props.spec)
+  if (!loaded) {
+    load(props.spec)
     .then(site => {
       setSite(site)
+      setLoaded(true)
     })
+  }
 
   return (
     <div className="site-item active-group shading-light justify-content-between align-items-start" aria-current="true">
