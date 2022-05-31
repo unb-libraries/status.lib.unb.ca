@@ -1,3 +1,7 @@
 .gitkeep
 vendor
 composer.lock
+node_modules
+package-lock.json
+.pnp
+.pnp.js
