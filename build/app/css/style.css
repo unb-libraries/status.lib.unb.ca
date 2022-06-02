@@ -1,0 +1,160 @@
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.shading-light {
+    background-color: #f8f9fa;
+}
+
+#root {
+    margin: 2rem auto;
+    font-family: "ProximaNovaA-Thin","Century Gothic",AppleGothic,Arial,sans-serif
+}
+
+h1 {
+    margin-bottom: 1.2rem;
+}
+
+h3 {
+    font-size: 1.1rem;
+    font-weight: normal;
+}
+
+#navbar-groups {
+    margin: 2rem 0 1rem;
+}
+
+#navbar-groups .nav-link {
+    color: #000;
+    margin: 0 .5rem;
+}
+
+#navbar-groups .nav-link.active, #navbar-groups .nav-link.active:hover {
+    color: #fff;
+    background-color: #000;
+}
+
+#navbar-groups .nav-link:hover {
+    background-color: #e4e4e4;
+}
+
+.site-list li {
+    padding: 0;
+    list-style-type: none;
+}
+
+.site-item {
+    position: relative;
+    display: none;
+    padding: .5rem 1rem;
+    color: #212529;
+    text-decoration: none;
+    border: 1px solid rgba(0,0,0,.125);
+    margin: .25rem 0;
+}
+
+.site-item.active-group {
+    display: flex;
+}
+
+.site-title {
+    font-size: 1.5rem;
+    margin-bottom: .25rem;
+}
+
+.site-title a {
+    color: #900;
+    text-decoration: none;
+}
+
+.site-meta i {
+    margin-right: .25rem;
+}
+
+.site-meta a {
+    color: #00607a;
+    text-decoration: none;
+}
+
+.site-meta a:hover {
+    text-decoration: underline;
+}
+
+.page-title {
+    margin-top: 1rem;
+}
+
+.page-url {
+    color: #900;
+    display: block;
+    font-size: 0.9rem;
+    text-decoration: none;
+    margin-top: -0.5rem;
+    margin-bottom: 0.4rem;
+}
+
+.page-url:hover {
+    color: #900;
+    text-decoration: underline;
+}
+
+.badge {
+    font-size: .85rem;
+    line-height: 1.25;
+    margin: .75rem;
+}
+
+.badge-passed {
+    background-color: #206620;
+}
+
+.badge-failed {
+    background-color: #8a0909;
+}
+
+.badge-pailed {
+    background-color: #e8c402;
+}
+
+.suite-content {
+    margin-top: .75rem;
+}
+
+.test, .suite {
+    padding-left: 0.5rem;
+}
+
+.test::marker, .suite::marker {
+    font-family: bootstrap-icons;
+    margin-right: 0.5em;
+    vertical-align: bottom;
+}
+
+.suite::marker {
+    content: "\F132";
+    font-weight: bold;
+}
+
+.test.test-passed {
+    color: #206620;
+}
+
+.test.test-passed::marker {
+    content: "\F26A";
+}
+
+.test.test-failed {
+    color: #8a0909;
+}
+
+.test.test-failed::marker, .suite.suite-failed::marker {
+    content: "\F622";
+}
+
+#footer {
+    line-height: 60px; /* Vertically center the text there */
+    background-color: #f5f5f5;
+    margin-top: auto;
+}

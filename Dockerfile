@@ -5,6 +5,7 @@ MAINTAINER UNB Libraries <libsupport@unb.ca>
 COPY ./build /build
 RUN cp -r /build/scripts/container/* /scripts/ && \
   mv /build/nginx/app.conf $NGINX_APP_CONF_FILE && \
+  mv /build/app/* $APP_WEBROOT && \
   rm -rf /build
 
 # Container metadata.
