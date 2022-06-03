@@ -1,8 +1,17 @@
-FROM ghcr.io/unb-libraries/nginx:2.x
+FROM node:18-alpine3.15 as app
+
+COPY ./build /build
+WORKDIR /usr/src
+RUN mv /build/app/* /usr/src && \
+    npm install && \
+    npm run build
+
+
+FROM ghcr.io/unb-libraries/nginx:2.x as web
 MAINTAINER UNB Libraries <libsupport@unb.ca>
 
 # Add package conf.
-COPY ./build /build
+COPY --from=app ./build /build
 RUN cp -r /build/scripts/container/* /scripts/ && \
   mv /build/nginx/app.conf $NGINX_APP_CONF_FILE && \
   mv /build/app/* $APP_WEBROOT && \

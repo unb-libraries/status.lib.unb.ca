@@ -6,7 +6,7 @@ function Badge(props) {
   }
   
   return (
-    <span className={`badge badge-${props.status} rounded-pill`}>
+    <span className={`badge badge-${props.status || 'unknown'} rounded-pill`}>
       {statusLabels[props.status] || 'Unknown'}
     </span>
   )
