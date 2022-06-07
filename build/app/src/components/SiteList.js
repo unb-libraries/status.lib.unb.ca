@@ -1,11 +1,13 @@
 import { useState } from 'react'
 import GroupFilter from './GroupFilter'
 import Site from './Site'
+import { intersect } from '../helpers/array'
 
 function SiteList() {
   const [refresh, setRefresh] = useState(true)
   const [sites, setSites] = useState([])
   const [groups, setGroups] = useState([])
+  const [selectedGroups, setSelectedGroups] = useState([])
 
   async function loadSites() {
     const response = await fetch('/reports.json')
@@ -47,6 +49,19 @@ function SiteList() {
     })
   }
 
+  function toggleGroupHandler(group) {
+    setSelectedGroups(() => {
+      const newSelectedGroups = [...selectedGroups]
+      if (group.selected) {
+        newSelectedGroups.push(group.id)
+      }
+      else {
+        newSelectedGroups.splice(newSelectedGroups.indexOf(group.id), 1)
+      }
+      return newSelectedGroups
+    })
+  }
+
   if (refresh) {
     loadSites().then(sites => {
       setSites(sites)
@@ -63,9 +78,9 @@ function SiteList() {
   }
 
   return <div>
-    <GroupFilter groups={groups} />
+    <GroupFilter groups={groups} selected={selectedGroups} onToggleGroup={toggleGroupHandler}/>
     <ul className="site-list list-group">
-    {sites.map(site => {
+    {sites.filter(site => intersect(site.groups, selectedGroups).length > 0).map(site => {
       return <li key={site.id}>
           <Site id={site.id} title={site.title} timestamp={site.timestamp} pages={site.pages} status={site.status} />
         </li>
