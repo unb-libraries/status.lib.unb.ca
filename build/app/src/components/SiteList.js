@@ -1,9 +1,11 @@
 import { useState } from 'react'
+import GroupFilter from './GroupFilter'
 import Site from './Site'
 
 function SiteList() {
   const [refresh, setRefresh] = useState(true)
   const [sites, setSites] = useState([])
+  const [groups, setGroups] = useState([])
 
   async function loadSites() {
     const response = await fetch('/reports.json')
@@ -48,6 +50,11 @@ function SiteList() {
   if (refresh) {
     loadSites().then(sites => {
       setSites(sites)
+      setGroups([].concat(...sites.map(site => {
+        return site.groups
+      })).filter((group, index, groups) => {
+        return groups.indexOf(group) === index
+      }))
       setRefresh(false)
       setTimeout(() => {
         setRefresh(true)
@@ -55,13 +62,16 @@ function SiteList() {
     })
   }
 
-  return <ul className="site-list list-group">
+  return <div>
+    <GroupFilter groups={groups} />
+    <ul className="site-list list-group">
     {sites.map(site => {
       return <li key={site.id}>
           <Site id={site.id} title={site.title} timestamp={site.timestamp} pages={site.pages} status={site.status} />
         </li>
     })}
   </ul>
+  </div>
 }
 
 export default SiteList
