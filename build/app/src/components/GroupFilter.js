@@ -3,7 +3,7 @@ import Group from "./Group"
 import { intersect } from '../helpers/array'
 
 function GroupFilter(props) {
-  const [selectedGroups, setSelectedGroups] = useState([])
+  const [selectedGroups, setSelectedGroups] = useState(props.groups)
   
   function toggleGroup(group) {
     setSelectedGroups(() => {

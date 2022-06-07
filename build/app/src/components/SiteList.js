@@ -65,6 +65,7 @@ function SiteList() {
   }
 
   return <div>
+    {sites.length > 0 &&
     <ul className="site-list list-group">
       <GroupFilter groups={groups}>
         {sites.map(site => 
@@ -74,6 +75,7 @@ function SiteList() {
         )}
       </GroupFilter>
     </ul>
+    }
   </div>
 }
 
