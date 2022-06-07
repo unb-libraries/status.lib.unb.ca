@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import GroupFilter from './GroupFilter'
 import Site from './Site'
-import json from '../helpers/dataMockery'
 
 
 function SiteList() {
