@@ -10,20 +10,21 @@ function SiteList() {
   const [groups, setGroups] = useState([])
 
   async function loadSites() {
-    const response = await fetch('/reports.json')
-    const reports = await response.json()
+    // const response = await fetch('/reports.json')
+    // const reports = await response.json()
+    const reports = json
     const sites = Object.values(reports).filter(report => {
-      return report.type === 'SuiteResult' && report.parent === ''
+      return report.type === 'site'
     })
 
     function getPages(site) {
       const pages = Object.values(reports).filter(report => {
-        return report.type === 'SuiteResult' && report.parent === site.id
+        return report.type === 'page' && report.site === site.id
       })
 
       function getTests(page) {
         return Object.values(reports).filter(report => {
-          return report.type === 'TestResult' && report.parent === page.id
+          return report.type === 'test' && report.page === page.id
         }) || []
       }
 
@@ -60,21 +61,21 @@ function SiteList() {
       setRefresh(false)
       setTimeout(() => {
         setRefresh(true)
-      }, 10000)
+      }, 60000)
     })
   }
 
   return <div>
     {sites.length > 0 &&
-    <ul className="site-list list-group">
-      <GroupFilter groups={groups}>
-        {sites.map(site => 
-          <li key={site.id} groups={site.groups}>
-            <Site id={site.id} title={site.title} timestamp={site.timestamp} pages={site.pages} status={site.status} />
-          </li>
-        )}
-      </GroupFilter>
-    </ul>
+      <ul className="site-list list-group">
+        <GroupFilter groups={groups}>
+          {sites.map(site => 
+            <li key={site.id} groups={site.groups}>
+              <Site id={site.id} title={site.title} timestamp={site.timestamp} pages={site.pages} status={site.status} />
+            </li>
+          )}
+        </GroupFilter>
+      </ul>
     }
   </div>
 }
