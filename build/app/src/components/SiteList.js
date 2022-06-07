@@ -10,9 +10,8 @@ function SiteList() {
   const [groups, setGroups] = useState([])
 
   async function loadSites() {
-    // const response = await fetch('/reports.json')
-    // const reports = await response.json()
-    const reports = json
+    const response = await fetch('/reports.json')
+    const reports = await response.json()
     const sites = Object.values(reports).filter(report => {
       return report.type === 'site'
     })
