@@ -134,6 +134,18 @@ h3 {
     background-color: #e8c402;
 }
 
+.bi.run {
+    font-size: 0.75rem;
+}
+
+.bi.run.run-passed {
+    color: #206620;
+}
+
+.bi.run.run-failed {
+    color: #900;
+}
+
 .suite-content {
     margin-top: .75rem;
 }
