@@ -44,7 +44,7 @@ spec:
               containerPort: 80
           volumeMounts:
             -
-              mountPath: /app/html
+              mountPath: /app/html/data
               name: status-persistent-storage
       priorityClassName: dev-high-priority-services
       imagePullSecrets:
