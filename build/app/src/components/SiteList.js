@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import GroupFilter from './GroupFilter'
 import Site from './Site'
-
+import { merge } from '../helpers/object'
+import { combine } from '../helpers/array'
 
 function SiteList() {
   const [refresh, setRefresh] = useState(true)
@@ -21,13 +22,26 @@ function SiteList() {
       })
 
       function getTests(page) {
-        return Object.values(reports).filter(report => {
+        return (Object.values(reports).filter(report => {
           return report.type === 'test' && report.page === page.id
-        }) || []
+        }) || []).map(test => {
+          test.status = Object.values(test.runs)[Object.keys(test.runs).length - 1].status
+          return test
+        })
       }
 
       return pages.map(page => {
         page.tests = getTests(page)
+        const runs = merge(...page.tests.map(test => combine(Object.keys(test.runs), Object.values(test.runs).map(run => run.status))))
+        page.runs = combine(Object.keys(runs), Object.values(runs).map(run => run.reduce((previous, current) => {
+          if (current !== 'passed') {
+            return 'failed'
+          }
+          else if (!previous) {
+            return 'passed'
+          }
+          return previous
+        })))
         page.status = getStatus(page.tests.filter(test => test.status === 'passed').length, page.tests.length)
         return page
       })
@@ -43,6 +57,16 @@ function SiteList() {
 
     return sites.map(site => {
         site.pages = getPages(site)
+        const runs = merge(...site.pages.map(page => page.runs))
+        site.runs = combine(Object.keys(runs), Object.values(runs).map(run => run.reduce((previous, current) => {
+          if (current !== 'passed') {
+            return 'failed'
+          }
+          else if (!previous) {
+            return 'passed'
+          }
+          return previous
+        })))
         site.status = getStatus(site.pages.filter(page => page.status === 'passed').length, site.pages.length)
         return site
     })
@@ -69,7 +93,7 @@ function SiteList() {
         <GroupFilter groups={groups}>
           {sites.map(site => 
             <li key={site.id} groups={site.groups}>
-              <Site id={site.id} title={site.title} timestamp={site.timestamp} pages={site.pages} status={site.status} />
+              <Site id={site.id} title={site.title} timestamp={site.timestamp} pages={site.pages} runs={site.runs} status={site.status} />
             </li>
           )}
         </GroupFilter>

@@ -13,8 +13,11 @@ function Site(props) {
         <span className="mr-3">
           <i className="bi bi-file-earmark-text"/>{props.pages.length} page{props.pages.length !== 1 && 's'}
         </span>
-          <span className="ms-3">
+        <span className="mx-3">
           <i className="bi bi-clock"/>{formatTime(props.timestamp)}
+        </span>
+        <span className="ms-3">
+          {Object.values(props.runs).map((status, index) => <i key={Object.keys(props.runs)[index]} className={`bi bi-square-fill run run-${status}`} />)}
         </span>
         </div>
         <div className="collapse suite-content" id={`suite-content-${props.id}`}>
