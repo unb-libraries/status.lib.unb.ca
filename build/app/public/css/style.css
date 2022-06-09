@@ -46,6 +46,22 @@ h3 {
     border-color: #900;
 }
 
+.group-filter .btn .label::after {
+    margin-left: 0.5rem;
+    vertical-align: bottom;
+    font-family: 'bootstrap-icons';
+}
+
+.group-filter .btn-primary .label::after,
+.group-filter .btn-secondary:hover .label::after {
+    content: "\F26D"; /* check-square */
+}
+
+.group-filter .btn-secondary .label::after,
+.group-filter .btn-primary:hover .label::after {
+    content: "\F629"; /* x-square */
+}
+
 .group-filter .btn-secondary:hover {
     background-color: #6c757d;
     border-color: #6c757d;

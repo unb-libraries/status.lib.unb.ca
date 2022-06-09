@@ -14,7 +14,9 @@ function Group(props) {
   }
 
   return (
-    <button className={`btn btn-${selected ? 'primary' : 'secondary'} ms-0 mx-1`} onClick={clickHandler}>{props.label}</button>
+    <button className={`btn btn-${selected ? 'primary' : 'secondary'} ms-0 mx-1`} onClick={clickHandler}>
+      <span className="label">{props.label}</span>
+    </button>
   )
 }
 
