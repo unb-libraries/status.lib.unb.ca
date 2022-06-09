@@ -5,7 +5,8 @@ function SiteHistoryBar(props) {
     <span className="ms-3">
       {Object
         .entries(props.runs)
-        .slice(-props.maxItems)
+        .reverse()
+        .slice(0, props.maxItems)
         .map(([timestamp, status]) => 
           <i key={timestamp} className={`bi bi-square-fill run run-${status}`} data-toggle="tooltip" data-placement="bottom" title={formatTime(timestamp)} />
         )
