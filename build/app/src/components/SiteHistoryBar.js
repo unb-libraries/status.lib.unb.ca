@@ -1,4 +1,5 @@
 import { combine } from "../helpers/array"
+import { formatTime } from "../helpers/time"
 
 function SiteHistoryBar(props) {
 
@@ -8,10 +9,10 @@ function SiteHistoryBar(props) {
       const date = new Date(parseInt(timestamp))
       const { year, month, day } = {
         year: date.getFullYear(),
-        month: date.getMonth().toString().padStart(2, 0),
+        month: (date.getMonth() + 1).toString().padStart(2, 0),
         day: date.getDate().toString().padStart(2, 0),
       }
-      const key = `${year}${month}${day}`
+      const key = new Date(`${year}/${month}/${day}`).getTime()
       if (!aggregated[key]) {
         aggregated[key] = []
       }
@@ -32,7 +33,7 @@ function SiteHistoryBar(props) {
   return (
     <span className="ms-3">
       {Object.entries(aggregate(props.runs)).map(([timestamp, status]) => 
-        <i key={timestamp} className={`bi bi-square-fill run run-${status}`} data-toggle="tooltip" data-placement="bottom" title={timestamp} />
+        <i key={timestamp} className={`bi bi-square-fill run run-${status}`} data-toggle="tooltip" data-placement="bottom" title={formatTime(timestamp, {y: 'numeric', m: 'long', d: 'numeric'})} />
       )}
     </span>
   )

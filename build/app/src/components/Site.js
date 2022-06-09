@@ -15,7 +15,7 @@ function Site(props) {
           <i className="bi bi-file-earmark-text"/>{props.pages.length} page{props.pages.length !== 1 && 's'}
         </span>
         <span className="mx-3">
-          <i className="bi bi-clock"/>{formatTime(props.timestamp)}
+          <i className="bi bi-clock"/>{formatTime(props.timestamp, {y: 'numeric', m: 'long', d: 'numeric', h: 'numeric', min: '2-digit'})}
         </span>
         <SiteHistoryBar runs={props.runs} maxItems={10}/>
         </div>

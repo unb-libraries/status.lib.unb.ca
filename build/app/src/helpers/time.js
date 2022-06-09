@@ -1,11 +1,13 @@
-export const formatTime = timestamp => {
+export function formatTime(timestamp, format = {}) {
+  
+  // See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat
   return new Intl.DateTimeFormat('en-CA', {
-    formatMatcher: 'basic',
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    hour: "numeric",
-    minute: "2-digit",
-    timeZone: "America/Moncton"
+    formatMatcher: format.fm || 'basic',
+    year: format.y,
+    month: format.m,
+    day: format.d,
+    hour: format.h,
+    minute: format.min,
+    timeZone: format.tz || "America/Moncton",
   }).format(timestamp)
 }
