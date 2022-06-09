@@ -25,7 +25,8 @@ function SiteList() {
         return (Object.values(reports).filter(report => {
           return report.type === 'test' && report.page === page.id
         }) || []).map(test => {
-          test.status = Object.values(test.runs)[Object.keys(test.runs).length - 1].status
+          test.latest = test.runs[test.runs.length - 1]
+          test.status = test.latest.status
           return test
         })
       }
