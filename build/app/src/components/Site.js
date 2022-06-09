@@ -1,3 +1,4 @@
+import SiteHistoryBar from './SiteHistoryBar'
 import Page from './Page'
 import Badge from './Badge'
 import { formatTime } from '../helpers/time'
@@ -16,9 +17,7 @@ function Site(props) {
         <span className="mx-3">
           <i className="bi bi-clock"/>{formatTime(props.timestamp)}
         </span>
-        <span className="ms-3">
-          {Object.values(props.runs).slice(-10).map((status, index) => <i key={Object.keys(props.runs)[index]} className={`bi bi-square-fill run run-${status}`} />)}
-        </span>
+        <SiteHistoryBar runs={props.runs} maxItems={10}/>
         </div>
         <div className="collapse suite-content" id={`suite-content-${props.id}`}>
           <ul>{props.pages.map(page => {
