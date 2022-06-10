@@ -17,7 +17,7 @@ function Site(props) {
         <span className="mx-3">
           <i className="bi bi-clock"/>{formatTime(props.timestamp, {y: 'numeric', m: 'long', d: 'numeric', h: 'numeric', min: '2-digit'})}
         </span>
-        <SiteHistoryBar runs={props.runs} maxItems={10}/>
+        <SiteHistoryBar runs={props.runs} maxItems={14}/>
         </div>
         <div className="collapse suite-content" id={`suite-content-${props.id}`}>
           <ul>{props.pages.map(page => {

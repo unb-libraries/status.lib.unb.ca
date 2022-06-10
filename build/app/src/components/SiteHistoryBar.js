@@ -32,7 +32,7 @@ function SiteHistoryBar(props) {
 
   return (
     <span className="ms-3">
-      {Object.entries(aggregate(props.runs)).map(([timestamp, status]) => 
+      {Object.entries(aggregate(props.runs)).reverse().slice(0, props.maxItems).map(([timestamp, status]) => 
         <i key={timestamp} className={`bi bi-square-fill run run-${status}`} data-toggle="tooltip" data-placement="bottom" title={formatTime(timestamp, {y: 'numeric', m: 'long', d: 'numeric'})} />
       )}
     </span>
