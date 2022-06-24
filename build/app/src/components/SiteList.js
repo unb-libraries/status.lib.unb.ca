@@ -11,66 +11,75 @@ function SiteList() {
 
   async function loadSites() {
     const response = await fetch('/data/reports.json')
-    const reports = await response.json()
-    const sites = Object.values(reports).filter(report => {
-      return report.type === 'site'
+    return (await response.json()).map(site => {
+      site.status = site.pages.some(
+        page => page.tests.some(
+          test => test.status === 'failed'
+        )
+      ) ? 'failed' : 'passed'
+      return site
     })
 
-    function getPages(site) {
-      const pages = Object.values(reports).filter(report => {
-        return report.type === 'page' && report.site === site.id
-      })
 
-      function getTests(page) {
-        return (Object.values(reports).filter(report => {
-          return report.type === 'test' && report.page === page.id
-        }) || []).map(test => {
-          test.latest = test.runs[Object.keys(test.runs)[Object.keys(test.runs).length - 1]]
-          test.status = test.latest.status
-          return test
-        })
-      }
+  //   const sites = Object.values(reports).filter(report => {
+  //     return report.type === 'site'
+  //   })
 
-      return pages.map(page => {
-        page.tests = getTests(page)
-        const runs = merge(...page.tests.map(test => combine(Object.keys(test.runs), Object.values(test.runs).map(run => run.status))))
-        page.runs = combine(Object.keys(runs), Object.values(runs).map(run => run.reduce((previous, current) => {
-          if (current !== 'passed') {
-            return 'failed'
-          }
-          else if (!previous) {
-            return 'passed'
-          }
-          return previous
-        })))
-        page.status = getStatus(page.tests.filter(test => test.status === 'passed').length, page.tests.length)
-        return page
-      })
-    }
+  //   function getPages(site) {
+  //     const pages = Object.values(reports).filter(report => {
+  //       return report.type === 'page' && report.site === site.id
+  //     })
 
-    function getStatus(passed, total) {
-      switch (passed) {
-        case 0: return 'failed'
-        case total: return 'passed'
-        default: return 'pailed'
-      }
-    }
+  //     function getTests(page) {
+  //       return (Object.values(reports).filter(report => {
+  //         return report.type === 'test' && report.page === page.id
+  //       }) || []).map(test => {
+  //         test.latest = test.runs[Object.keys(test.runs)[Object.keys(test.runs).length - 1]]
+  //         test.status = test.latest.status
+  //         return test
+  //       })
+  //     }
 
-    return sites.map(site => {
-        site.pages = getPages(site)
-        const runs = merge(...site.pages.map(page => page.runs))
-        site.runs = combine(Object.keys(runs), Object.values(runs).map(run => run.reduce((previous, current) => {
-          if (current !== 'passed') {
-            return 'failed'
-          }
-          else if (!previous) {
-            return 'passed'
-          }
-          return previous
-        })))
-        site.status = getStatus(site.pages.filter(page => page.status === 'passed').length, site.pages.length)
-        return site
-    })
+  //     return pages.map(page => {
+  //       page.tests = getTests(page)
+  //       const runs = merge(...page.tests.map(test => combine(Object.keys(test.runs), Object.values(test.runs).map(run => run.status))))
+  //       page.runs = combine(Object.keys(runs), Object.values(runs).map(run => run.reduce((previous, current) => {
+  //         if (current !== 'passed') {
+  //           return 'failed'
+  //         }
+  //         else if (!previous) {
+  //           return 'passed'
+  //         }
+  //         return previous
+  //       })))
+  //       page.status = getStatus(page.tests.filter(test => test.status === 'passed').length, page.tests.length)
+  //       return page
+  //     })
+  //   }
+
+  //   function getStatus(passed, total) {
+  //     switch (passed) {
+  //       case 0: return 'failed'
+  //       case total: return 'passed'
+  //       default: return 'pailed'
+  //     }
+  //   }
+
+  //   return sites.map(site => {
+  //       site.pages = getPages(site)
+  //       const runs = merge(...site.pages.map(page => page.runs))
+  //       site.runs = combine(Object.keys(runs), Object.values(runs).map(run => run.reduce((previous, current) => {
+  //         if (current !== 'passed') {
+  //           return 'failed'
+  //         }
+  //         else if (!previous) {
+  //           return 'passed'
+  //         }
+  //         return previous
+  //       })))
+  //       site.status = getStatus(site.pages.filter(page => page.status === 'passed').length, site.pages.length)
+  //       return site
+  //   })
   }
 
   if (refresh) {
