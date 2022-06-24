@@ -2,14 +2,19 @@ import SiteHistoryBar from './SiteHistoryBar'
 import Page from './Page'
 import Badge from './Badge'
 import { formatTime } from '../helpers/time'
+import { useState } from 'react'
 
 function Site(props) {
+  const [collapsed, setCollapsed] = useState(true)
+
+  const toggleCollapse = () => {
+    setCollapsed((collapsed) => !collapsed)
+  }
+
   return (
-    <div className="site-item active-group shading-light justify-content-between align-items-start" aria-current="true">
+    <div className="site-item active-group shading-light justify-content-between align-items-start" aria-current="true" onClick={toggleCollapse}>
       <div>
-        <h2 className="site-title">
-          <a data-bs-toggle="collapse" href={`#suite-content-${props.id}`}>{props.title}</a>
-        </h2>
+        <h2 className="site-title">{props.title}</h2>
         <div className="site-meta d-flex flex-row">
         <span className="mr-3">
           <i className="bi bi-file-earmark-text"/>{props.pages.length} page{props.pages.length !== 1 && 's'}
@@ -19,7 +24,7 @@ function Site(props) {
         </span>
         <SiteHistoryBar runs={props.runs} maxItems={14}/>
         </div>
-        <div className="collapse suite-content" id={`suite-content-${props.id}`}>
+        <div className={`${collapsed ? 'collapse ' : ''}suite-content`} id={`suite-content-${props.id}`}>
           <ul>{props.pages.map(page => {
             return <li key={page.id} className="suite">
               <Page id={page.id} title={page.title} url={page.url} tests={page.tests} />
