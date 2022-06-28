@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import DynamicLayout from './layout/DynamicLayout'
 import GroupFilter from './GroupFilter'
 import Site from './Site'
 import { merge } from '../helpers/object'
@@ -97,19 +98,21 @@ function SiteList(props) {
     })
   }
 
-  return <div>
-    {sites.length > 0 &&
-      <ul className="site-list list-group">
-        <GroupFilter groups={groups}>
-          {sites.map(site => 
-            <li key={site.id} groups={site.groups}>
-              <Site id={site.id} title={site.title} timestamp={site.timestamp} pages={site.pages} runs={site.runs} status={site.status} />
-            </li>
-          )}
-        </GroupFilter>
-      </ul>
-    }
-  </div>
+  return (
+    <DynamicLayout>
+      {sites.length > 0 &&
+        <ul className="site-list list-group">
+          <GroupFilter groups={groups}>
+            {sites.map(site => 
+              <li key={site.id} groups={site.groups}>
+                <Site id={site.id} title={site.title} timestamp={site.timestamp} pages={site.pages} runs={site.runs} status={site.status} />
+              </li>
+            )}
+          </GroupFilter>
+        </ul>
+      }
+    </DynamicLayout>
+  )
 }
 
 export default SiteList
