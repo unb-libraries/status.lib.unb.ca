@@ -160,6 +160,9 @@ h3 {
 .bi.run.run-failed {
     color: #900;
 }
+.bi.run.run-unknown {
+    color: rgb(87, 87, 87);
+}
 
 .suite-content {
     margin-top: .75rem;

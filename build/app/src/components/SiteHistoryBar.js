@@ -1,41 +1,40 @@
-import { combine } from "../helpers/array"
-import { formatTime } from "../helpers/time"
+import { setTime, formatTime } from "../helpers/time"
 
 function SiteHistoryBar(props) {
 
-  function aggregate(runs) {
-    const aggregated = {}
-    Object.entries(runs).forEach(([timestamp, status]) => {
-      const date = new Date(parseInt(timestamp))
-      const { year, month, day } = {
-        year: date.getFullYear(),
-        month: (date.getMonth() + 1).toString().padStart(2, 0),
-        day: date.getDate().toString().padStart(2, 0),
-      }
-      const key = new Date(`${year}/${month}/${day}`).getTime()
-      if (!aggregated[key]) {
-        aggregated[key] = []
-      }
-      aggregated[key].push(status)
-    })
+  const errors = props.pages.reduce(
+    (siteErrors, page) => siteErrors.concat(...page.tests.reduce(
+      (pageErrors, test) => pageErrors.concat(...test.errors), 
+    [])), 
+  [])
 
-    return combine(Object.keys(aggregated), Object.values(aggregated).map(statuses => statuses.reduce((previous, current) => {
-      if (current !== 'passed') {
-        return 'failed'
-      }
-      else if (!previous) {
-        return 'passed'
-      }
-      return previous
-    })))
-  }
+  const today = setTime(Date.now(), 0, 0, 0)
+  const dates = Array(props.maxItems).fill().map((_, index) => {
+    const date = new Date(today.getTime())
+    date.setDate(date.getDate() - index)
+    return date.getTime()
+  })
+
+  const history = {}
+  dates.forEach(date => history[date] = undefined)
+  errors.forEach(error => {
+    const errorDate = setTime(error.occurred, 0, 0, 0).getTime()
+    if (!history[errorDate]) {
+      history[errorDate] = 0
+    }
+    history[errorDate]++
+  })
+
+  const items = Object.entries(history).map(([timestamp, errors]) => {
+    const date = formatTime(timestamp, {y: 'numeric', m: 'long', d: 'numeric'})
+    const tooltipText = errors !== undefined
+      ? `${date}: ${errors} error${errors !== 1 ? 's' : ''}`
+      : `${date}: Did not run`
+    return <i key={timestamp} className={`bi bi-square-fill run run-${!errors ? 'unknown' : (errors === 0 ? 'passed' : 'failed')}`} data-toggle="tooltip" data-placement="bottom" title={tooltipText} />
+  })
 
   return (
-    <span className="ms-3">
-      {Object.entries(aggregate(props.runs)).reverse().slice(0, props.maxItems).map(([timestamp, status]) => 
-        <i key={timestamp} className={`bi bi-square-fill run run-${status}`} data-toggle="tooltip" data-placement="bottom" title={formatTime(timestamp, {y: 'numeric', m: 'long', d: 'numeric'})} />
-      )}
-    </span>
+    <span className="ms-3">{items}</span>
   )
 }
 
