@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-function Group(props) {
+const Group = (props) => {
   const [selected, setSelected] = useState(props.selected !== undefined ? props.selected : true)
 
   function clickHandler() {

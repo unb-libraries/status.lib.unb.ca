@@ -1,4 +1,4 @@
-function Badge(props) {
+const Badge = (props) => {
   const statusLabels = {
     passed: 'Available',
     failed: 'Unavailable',

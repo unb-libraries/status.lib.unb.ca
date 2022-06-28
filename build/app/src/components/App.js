@@ -2,9 +2,7 @@ import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import SiteList from './SiteList';
 
-function App() {
-  
-
+const App = () => {
   return (
     <BrowserRouter>
       <Routes>

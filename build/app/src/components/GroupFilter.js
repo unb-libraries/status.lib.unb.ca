@@ -1,8 +1,11 @@
 import { useState } from "react"
 import Group from "./Group"
-import { intersect } from '../helpers/array'
 
-function GroupFilter(props) {
+const intersect = (arr1, arr2) => {
+  return arr1.filter(item => arr2.includes(item));
+}
+
+const GroupFilter = (props) => {
   const [selectedGroups, setSelectedGroups] = useState(props.groups)
   
   function toggleGroup(group) {

@@ -4,7 +4,7 @@ import Badge from './Badge'
 import { formatTime } from '../helpers/time'
 import { useState } from 'react'
 
-function Site(props) {
+const Site = (props) => {
   const [collapsed, setCollapsed] = useState(true)
 
   const toggleCollapse = () => {
@@ -16,12 +16,12 @@ function Site(props) {
       <div>
         <h2 className="site-title">{props.title}</h2>
         <div className="site-meta d-flex flex-row">
-        <span className="mr-3">
-          <i className="bi bi-file-earmark-text"/>{props.pages.length} page{props.pages.length !== 1 && 's'}
-        </span>
-        <span className="mx-3">
-          <i className="bi bi-clock"/>{formatTime(props.timestamp, {y: 'numeric', m: 'long', d: 'numeric', h: 'numeric', min: '2-digit'})}
-        </span>
+          <span className="mr-3">
+            <i className="bi bi-file-earmark-text"/>{props.pages.length} page{props.pages.length !== 1 && 's'}
+          </span>
+          <span className="mx-3">
+            <i className="bi bi-clock"/>{formatTime(props.timestamp, {y: 'numeric', m: 'long', d: 'numeric', h: 'numeric', min: '2-digit'})}
+          </span>
         </div>
         <div className={`${collapsed ? 'collapse ' : ''}suite-content`} id={`suite-content-${props.id}`}>
           <SiteHistoryBar pages={props.pages} maxItems={14}/>

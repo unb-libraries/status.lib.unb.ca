@@ -1,4 +1,4 @@
-function Page(props) {
+const Page = (props) => {
   const urlClickHandler = (event) => {
     event.stopPropagation()
   }

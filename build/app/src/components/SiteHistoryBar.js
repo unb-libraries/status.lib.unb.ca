@@ -1,6 +1,6 @@
 import { setTime, formatTime } from "../helpers/time"
 
-function SiteHistoryBar(props) {
+const SiteHistoryBar = (props) => {
 
   const errors = props.pages.reduce(
     (siteErrors, page) => siteErrors.concat(...page.tests.reduce(
