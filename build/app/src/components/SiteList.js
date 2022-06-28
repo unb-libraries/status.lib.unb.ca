@@ -4,13 +4,13 @@ import Site from './Site'
 import { merge } from '../helpers/object'
 import { combine } from '../helpers/array'
 
-function SiteList() {
+function SiteList(props) {
   const [refresh, setRefresh] = useState(true)
   const [sites, setSites] = useState([])
   const [groups, setGroups] = useState([])
 
   async function loadSites() {
-    const response = await fetch('/data/reports.json')
+    const response = await fetch(`/data/${props.dataSource}.json`)
     return (await response.json()).map(site => {
       site.status = site.pages.some(
         page => page.tests.some(
