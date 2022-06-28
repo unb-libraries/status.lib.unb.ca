@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
-import SiteList from './SiteList';
+import { NavLink, Outlet } from 'react-router-dom';
 
-function App(props) {
+function App() {
   const [collapsed, setCollapsed] = useState(true)
 
   const navbarToggle = () => {
@@ -37,7 +36,7 @@ function App(props) {
       <div id="main" className="container">
         <h1>Systems & Services</h1>
         <noscript>You need to enable JavaScript to run this app.</noscript>
-        <SiteList dataSource={props.dataSource} />
+        <Outlet />
       </div>
       <footer id="footer">
         <div className="container">
