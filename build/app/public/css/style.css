@@ -100,7 +100,7 @@ h3 {
     color: #900;
 }
 
-.site-meta i {
+.site-meta i, .site-history i {
     margin-right: .25rem;
 }
 
@@ -154,14 +154,14 @@ h3 {
 }
 
 .bi.run.run-passed {
-    color: #206620;
+    color: #3d9131;
 }
 
 .bi.run.run-failed {
     color: #900;
 }
 .bi.run.run-unknown {
-    color: rgb(87, 87, 87);
+    color: rgb(185, 185, 185);
 }
 
 .suite-content {

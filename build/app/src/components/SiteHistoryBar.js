@@ -8,6 +8,12 @@ function SiteHistoryBar(props) {
     [])), 
   [])
 
+  const runs = props.pages.reduce(
+    (siteRuns, page) => siteRuns.concat(...page.tests.reduce(
+      (pageRuns, test) => pageRuns.concat(...test.runs), 
+    [])), 
+  [])
+
   const today = setTime(Date.now(), 0, 0, 0)
   const dates = Array(props.maxItems).fill().map((_, index) => {
     const date = new Date(today.getTime())
@@ -17,6 +23,7 @@ function SiteHistoryBar(props) {
 
   const history = {}
   dates.forEach(date => history[date] = undefined)
+  runs.forEach(runDate => history[runDate] = 0)
   errors.forEach(error => {
     const errorDate = setTime(error.occurred, 0, 0, 0).getTime()
     if (!history[errorDate]) {
@@ -30,11 +37,11 @@ function SiteHistoryBar(props) {
     const tooltipText = errors !== undefined
       ? `${date}: ${errors} error${errors !== 1 ? 's' : ''}`
       : `${date}: Did not run`
-    return <i key={timestamp} className={`bi bi-square-fill run run-${!errors ? 'unknown' : (errors === 0 ? 'passed' : 'failed')}`} data-toggle="tooltip" data-placement="bottom" title={tooltipText} />
+    return <i key={timestamp} className={`bi bi-square-fill run run-${errors === undefined ? 'unknown' : (errors === 0 ? 'passed' : 'failed')}`} data-toggle="tooltip" data-placement="bottom" title={tooltipText} />
   })
 
   return (
-    <span className="ms-3">{items}</span>
+    <span className="site-history ms-3">{items}</span>
   )
 }
 

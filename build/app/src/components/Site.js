@@ -22,9 +22,9 @@ function Site(props) {
         <span className="mx-3">
           <i className="bi bi-clock"/>{formatTime(props.timestamp, {y: 'numeric', m: 'long', d: 'numeric', h: 'numeric', min: '2-digit'})}
         </span>
-        <SiteHistoryBar pages={props.pages} maxItems={14}/>
         </div>
         <div className={`${collapsed ? 'collapse ' : ''}suite-content`} id={`suite-content-${props.id}`}>
+          <SiteHistoryBar pages={props.pages} maxItems={14}/>
           <ul>{props.pages.map(page => {
             return <li key={page.id} className="suite">
               <Page id={page.id} title={page.title} url={page.url} tests={page.tests} />
