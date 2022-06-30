@@ -53,6 +53,7 @@ const SiteList = (props) => {
           </GroupFilter>
         </ul>
       }
+      {sites.length <= 0 && <div>{props.emptyMessage}</div>}
     </DynamicLayout>
   )
 }
