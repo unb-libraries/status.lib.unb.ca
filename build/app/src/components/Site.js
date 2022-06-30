@@ -27,7 +27,7 @@ const Site = (props) => {
           <SiteHistoryBar pages={props.pages} maxItems={14}/>
           <ul>{props.pages.map(page => {
             return <li key={page.id} className="suite">
-              <Page id={page.id} title={page.title} url={page.url} tests={page.tests} />
+              <Page id={page.id} title={page.title} href={`${props.url}${page.path}`} tests={page.tests} />
               </li>
           })}
           </ul>

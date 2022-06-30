@@ -47,7 +47,7 @@ const SiteList = (props) => {
           <GroupFilter groups={groups}>
             {sites.map(site => 
               <li key={site.id} groups={site.groups}>
-                <Site id={site.id} title={site.title} timestamp={site.time} pages={site.pages} runs={site.runs} status={site.status} />
+                <Site id={site.id} title={site.title} url={site.url} timestamp={site.time} pages={site.pages} runs={site.runs} status={site.status} />
               </li>
             )}
           </GroupFilter>
