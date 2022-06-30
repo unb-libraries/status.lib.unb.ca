@@ -3,6 +3,10 @@ import DynamicLayout from './layout/DynamicLayout'
 import GroupFilter from './GroupFilter'
 import Site from './Site'
 
+const titleSort = (site, anotherSite) => {
+  return site.title > anotherSite.title ? 1 : (site.title < anotherSite.title ? -1 : 0)
+}
+
 const SiteList = (props) => {
   const [refresh, setRefresh] = useState(true)
   const [sites, setSites] = useState([])
@@ -22,6 +26,7 @@ const SiteList = (props) => {
 
   if (refresh) {
     loadSites().then(sites => {
+      sites.sort(titleSort)
       setSites(sites)
       setGroups([].concat(...sites.map(site => {
         return site.groups
