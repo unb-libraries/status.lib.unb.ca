@@ -14,7 +14,8 @@ const SiteHistoryBar = (props) => {
     [])), 
   [])
 
-  const today = setTime(Date.now(), 0, 0, 0)
+  const now = Date.now()
+  const today = setTime(now, 0, 0, 0)
   const dates = Array(props.maxItems).fill().map((_, index) => {
     const date = new Date(today.getTime())
     date.setDate(date.getDate() - index)
@@ -25,11 +26,15 @@ const SiteHistoryBar = (props) => {
   dates.forEach(date => history[date] = undefined)
   runs.forEach(runDate => history[runDate] = 0)
   errors.forEach(error => {
-    const errorDate = setTime(error.occurred, 0, 0, 0).getTime()
-    if (!history[errorDate]) {
-      history[errorDate] = 0
+    let occurredDate = setTime(error.occurred, 0, 0, 0).getTime()
+    const resolvedDate = setTime(error.resolved || now, 0, 0, 0).getTime()
+
+    while (occurredDate <= resolvedDate) {
+      if (history[occurredDate] !== undefined) {
+        history[occurredDate]++
+      }
+      occurredDate += 86400000
     }
-    history[errorDate]++
   })
 
   const items = Object.entries(history).map(([timestamp, errors]) => {
