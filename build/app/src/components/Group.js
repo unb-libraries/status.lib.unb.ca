@@ -1,9 +1,13 @@
 const Group = props => {
-  const selectedClassName = props.selected ? 'primary' : 'secondary'
+  let selectedClassName = 'btn'
+  if (props.selected !== undefined) {
+    selectedClassName = 'btn-'.concat(props.selected ? 'primary' : 'secondary')
+  }
+  
   return (
     <button
-      className={`btn btn-${selectedClassName} ms-0 mx-1`}
-      onClick={props.onToggle.bind(null, props.id)}>
+      className={`btn ${selectedClassName} ms-0 mx-1`}
+      onClick={props.onClick}>
       <span className="label">{props.label}</span>
     </button>
   )
