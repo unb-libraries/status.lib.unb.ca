@@ -1,32 +1,44 @@
-import { useState } from "react"
-import Group from "./Group"
+import { useEffect, useState } from 'react'
+import Group from './Group'
 
-const intersect = (arr1, arr2) => {
-  return arr1.filter(item => arr2.includes(item));
-}
+const GroupFilter = props => {
+  const [selectedGroups, setSelectedGroups] = useState({})
 
-const GroupFilter = (props) => {
-  const [selectedGroups, setSelectedGroups] = useState(props.groups)
-  
+  const { groups } = props
+  useEffect(() => {
+    const initialSelection = { ...selectedGroups }
+    groups.forEach(
+      group => (initialSelection[group] = initialSelection[group] || true)
+    )
+    setSelectedGroups(initialSelection)
+  }, [props])
+
   function toggleGroup(group) {
-    setSelectedGroups(() => {
-      const newSelectedGroups = [...selectedGroups]
-      if (group.selected) {
-        newSelectedGroups.push(group.id)
-      }
-      else {
-        newSelectedGroups.splice(newSelectedGroups.indexOf(group.id), 1)
-      }
+    setSelectedGroups(selectedGroups => {
+      const newSelectedGroups = { ...selectedGroups }
+      newSelectedGroups[group] = !selectedGroups[group]
       return newSelectedGroups
     })
   }
 
+  const buttons = props.groups.map(group => {
+    return (
+      <Group
+        key={group}
+        id={group}
+        label={group.toUpperCase()}
+        selected={selectedGroups[group]}
+        onToggle={toggleGroup}
+      />
+    )
+  })
+
   return (
     <div>
-      <div className="group-filter mb-3">{props.groups.map(group => {
-        return <Group key={group} id={group} label={group.toUpperCase()} selected={selectedGroups.includes(group)} onToggle={toggleGroup} />
-      })}</div>
-      {props.children.filter(child => intersect(child.props.groups, selectedGroups).length > 0)}
+      <div className="group-filter mb-3">{buttons}</div>
+      {props.children.filter(child =>
+        child.props.groups.some(group => selectedGroups[group])
+      )}
     </div>
   )
 }

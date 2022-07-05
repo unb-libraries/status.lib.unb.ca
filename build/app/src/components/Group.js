@@ -1,20 +1,9 @@
-import { useState } from 'react'
-
-const Group = (props) => {
-  const [selected, setSelected] = useState(props.selected !== undefined ? props.selected : true)
-
-  function clickHandler() {
-    setSelected(!selected)
-    if (props.onToggle) {
-      props.onToggle({
-        ...props,
-        selected: !selected
-      })
-    }
-  }
-
+const Group = props => {
+  const selectedClassName = props.selected ? 'primary' : 'secondary'
   return (
-    <button className={`btn btn-${selected ? 'primary' : 'secondary'} ms-0 mx-1`} onClick={clickHandler}>
+    <button
+      className={`btn btn-${selectedClassName} ms-0 mx-1`}
+      onClick={props.onToggle.bind(null, props.id)}>
       <span className="label">{props.label}</span>
     </button>
   )
