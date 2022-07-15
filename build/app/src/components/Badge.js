@@ -1,13 +1,10 @@
 const Badge = (props) => {
-  const statusLabels = {
-    passed: 'Available',
-    failed: 'Unavailable',
-    pailed: 'Some features unavailable'
-  }
-  
+  const successRate = 100 - Math.abs(props.errors / props.tests * 100)
+  const level = [20, 60, 99, 100].find(level => successRate <= level)
+
   return (
-    <span className={`badge badge-${props.status || 'unknown'} rounded-pill`}>
-      {statusLabels[props.status] || 'Unknown'}
+    <span className={`badge badge-${level} rounded-pill`}>
+      {props.errors > 0 ? props.errors : 'No'} error{props.errors !== 1 && 's'}
     </span>
   )
 }

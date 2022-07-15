@@ -11,6 +11,13 @@ const Site = (props) => {
     setCollapsed((collapsed) => !collapsed)
   }
 
+  const testTotal = props.pages.reduce((count, page) => count + page.tests.length, 0)
+  const errorTotal = props.pages.reduce(
+    (errors, page) => errors + page.tests.filter(
+      test => test.status === 'failed'
+    ).length, 
+  0)
+
   return (
     <div className="site-item active-group shading-light justify-content-between align-items-start" aria-current="true" onClick={toggleCollapse}>
       <div>
@@ -33,7 +40,7 @@ const Site = (props) => {
           </ul>
         </div>
       </div>
-      <Badge status={props.status} />
+      <Badge status={props.status} tests={testTotal} errors={errorTotal}/>
     </div>
   )
 }

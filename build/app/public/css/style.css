@@ -135,18 +135,24 @@ h3 {
     font-size: .85rem;
     line-height: 1.25;
     margin: .75rem;
+    min-width: 5rem;
 }
 
-.badge-passed {
-    background-color: #206620;
+.badge-100 {
+    background-color: #3d9131;
 }
 
-.badge-failed {
+.badge-99 {
+    background-color: #f3d52a;
+    color: #212529;
+}
+
+.badge-60 {
+    background-color: #e06d0f;
+}
+
+.badge-20 {
     background-color: #8a0909;
-}
-
-.badge-pailed {
-    background-color: #e8c402;
 }
 
 .bi.run {
