@@ -37,7 +37,7 @@ const SiteHistoryBar = (props) => {
     }
   })
 
-  const items = Object.entries(history).map(([timestamp, errors]) => {
+  const items = Object.entries(history).reverse().map(([timestamp, errors]) => {
     const date = formatTime(timestamp, {y: 'numeric', m: 'long', d: 'numeric'})
     const tooltipText = errors !== undefined
       ? `${date}: ${errors} error${errors !== 1 ? 's' : ''}`
