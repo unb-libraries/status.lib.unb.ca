@@ -23,6 +23,33 @@ const Site = (props) => {
     .duration()
     .format()
 
+  let latestStatusChangeTimestamp = undefined
+  const siteErrors = [].concat(...props.pages.map(page => {
+    return [].concat(...page.tests.map(test => test.errors))
+  }))
+  if (props.status === 'passed') {
+    const sortByResolved = (err1, err2) => err1.resolved - err2.resolved
+    if (siteErrors.length > 0) {
+      latestStatusChangeTimestamp = siteErrors.sort(sortByResolved)[0].resolved
+    }
+  }
+  else {
+    const sortByOccurred = (err1, err2) => err1.occurred - err2.occurred
+    if (siteErrors.length > 0) {
+      latestStatusChangeTimestamp = siteErrors.sort(sortByOccurred)[0].occurred
+    }
+  }
+
+  if (latestStatusChangeTimestamp === undefined) {
+    const siteRuns = [].concat(...props.pages.map(page => [].concat(...page.tests.map(test => test.runs))))
+    latestStatusChangeTimestamp = Math.min(...siteRuns)
+  }
+
+  const latestStatusChangeTime = DateTime.fromTimestamp(latestStatusChangeTimestamp)
+  const durationSinceLastStatusChange = Interval.untilNow(latestStatusChangeTime)
+    .duration()
+    .format()
+
   return (
     <div className="site-item active-group shading-light justify-content-between align-items-start" aria-current="true" onClick={toggleCollapse}>
       <div>
@@ -33,6 +60,9 @@ const Site = (props) => {
           </span>
           <span className="mx-3">
             <i className="bi bi-clock"/>{elapsedTime}
+          </span>
+          <span className="mx-3">
+            <i className={`bi bi-${props.status === 'passed' ? 'arrow-down' : 'arrow-up'}`}/>{durationSinceLastStatusChange}
           </span>
         </div>
         <div className={`${collapsed ? 'collapse ' : ''}suite-content`} id={`suite-content-${props.id}`}>
