@@ -10,11 +10,11 @@ const DateTimestamp = (props) => {
     formatted = Interval
       .untilNow(datetime)
       .duration()
-      .format()
+      .format() || props.altText || ''
   }
 
-  if (props.children && props.children.length > 0) {
-    formatted = props.children.replace('{}', formatted)
+  if (props.text) {
+    formatted = props.text.replace('{}', formatted)
   }
 
   return (

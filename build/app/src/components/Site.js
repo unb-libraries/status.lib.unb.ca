@@ -29,14 +29,14 @@ const Site = (props) => {
         <h2 className="site-title">{props.title}</h2>
         <Inline>
           <Iconed icon={Icons.page}><span>{props.pages.length} page{props.pages.length !== 1 && 's'}</span></Iconed>
-          <Iconed icon={Icons.clock}><DateTimestamp milliseconds={props.timestamp} elapsed={true}>{'{} ago'}</DateTimestamp></Iconed>
+          <Iconed icon={Icons.clock}><DateTimestamp milliseconds={props.timestamp} elapsed={true} text={'{} ago'} altText={'Less than a minute'} /></Iconed>
           {siteErrors.length > 0 
             ? props.status === 'passed'
-              ? <Iconed icon={Icons.arrowUp}><DateTimestamp milliseconds={Math.max(...siteErrors.map(error => error.resolved))} elapsed={true}>{'No errors for {}'}</DateTimestamp></Iconed>
-              : <Iconed icon={Icons.arrowDown}><DateTimestamp milliseconds={Math.max(...siteErrors.map(error => error.occurred))} elapsed={true}>{'Failing for {}'}</DateTimestamp></Iconed>
+              ? <Iconed icon={Icons.arrowUp}><DateTimestamp milliseconds={Math.max(...siteErrors.map(error => error.resolved))} elapsed={true} text={'No errors for {}'} altText={'Less than a minute'} /></Iconed>
+              : <Iconed icon={Icons.arrowDown}><DateTimestamp milliseconds={Math.max(...siteErrors.map(error => error.occurred))} elapsed={true} text={'Failing for {}'} altText={'Less than a minute'}/></Iconed>
             : props.status === 'passed'
-              ? <Iconed icon={Icons.arrowUp}><DateTimestamp milliseconds={Math.min(...siteRuns())} elapsed={true}>{'No errors for at least {}'}</DateTimestamp></Iconed>
-              : <Iconed icon={Icons.arrowDown}><DateTimestamp milliseconds={Math.min(...siteRuns())} elapsed={true}>{'Failing for at least {}'}</DateTimestamp></Iconed>
+              ? <Iconed icon={Icons.arrowUp}><DateTimestamp milliseconds={Math.min(...siteRuns())} elapsed={true} text={'No errors for at least {}'} altText={'Less than a minute'} /></Iconed>
+              : <Iconed icon={Icons.arrowDown}><DateTimestamp milliseconds={Math.min(...siteRuns())} elapsed={true} text={'Failing for at least {}'} altText={'Less than a minute'} /></Iconed>
           }
         </Inline>
         <div className={`${collapsed ? 'collapse ' : ''}suite-content`} id={`suite-content-${props.id}`}>
