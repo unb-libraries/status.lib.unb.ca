@@ -24,7 +24,7 @@ const Site = (props) => {
   const siteErrors = [].concat(...props.pages.map(page => [].concat(...page.tests.map(test => test.errors))))
 
   return (
-    <div className="site-item active-group shading-light justify-content-between align-items-start" aria-current="true" onClick={toggleCollapse}>
+    <div className={`site-item ${props.expandable && 'expandable'} active-group shading-light justify-content-between align-items-start`} aria-current="true" onClick={toggleCollapse}>
       <div>
         <h2 className="site-title">{props.title}</h2>
         <Inline>
@@ -39,10 +39,12 @@ const Site = (props) => {
               : <Iconed icon={Icons.arrowDown}><DateTimestamp milliseconds={Math.min(...siteRuns())} elapsed={true} text={'Failing for at least {}'} altText={'Less than a minute'} /></Iconed>
           }
         </Inline>
-        <div className={`${collapsed ? 'collapse ' : ''}suite-content`} id={`suite-content-${props.id}`}>
-          <SiteHistoryBar pages={props.pages} maxItems={14}/>
+        {(props.expandable && !collapsed) && (
+          <div className={`${props.collapsed ? 'collapse ' : ''}suite-content`} id={`suite-content-${props.id}`}>
+            <SiteHistoryBar pages={props.pages} maxItems={14}/>
             <PageList pages={props.pages} />
-        </div>
+          </div>
+        )}
       </div>
       <Badge status={props.status} tests={testTotal} errors={errorTotal}/>
     </div>

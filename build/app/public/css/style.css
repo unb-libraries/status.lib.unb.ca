@@ -86,7 +86,7 @@ h3 {
     margin: .25rem 0;
 }
 
-.site-item:hover {
+.expandable:hover {
     cursor: pointer;
 }
 

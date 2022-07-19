@@ -2,12 +2,16 @@ import { useState } from 'react'
 import DynamicLayout from './layout/DynamicLayout'
 import GroupFilter from './GroupFilter'
 import Site from './Site'
+import { useSearchParams } from 'react-router-dom'
 
 const titleSort = (site, anotherSite) => {
   return site.title > anotherSite.title ? 1 : (site.title < anotherSite.title ? -1 : 0)
 }
 
 const SiteList = (props) => {
+  const [params] = useSearchParams()
+  const expandable = params.get('expandable')
+  
   const [refresh, setRefresh] = useState(true)
   const [sites, setSites] = useState([])
   const [groups, setGroups] = useState([])
@@ -47,7 +51,7 @@ const SiteList = (props) => {
           <GroupFilter groups={groups}>
             {sites.map(site => 
               <li key={site.id} groups={site.groups}>
-                <Site id={site.id} title={site.title} url={site.url} timestamp={site.time} pages={site.pages} runs={site.runs} status={site.status} />
+                <Site id={site.id} title={site.title} url={site.url} timestamp={site.time} pages={site.pages} runs={site.runs} status={site.status} expandable={expandable} />
               </li>
             )}
           </GroupFilter>
