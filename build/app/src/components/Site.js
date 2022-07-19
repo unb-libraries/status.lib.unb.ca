@@ -3,7 +3,8 @@ import Page from './Page'
 import Badge from './Badge'
 import { DateTime, Interval } from '../helpers/time'
 import { useState } from 'react'
-import Icon, { IconTypes } from './UI/Icon'
+import Iconed, { Icons } from './UI/Icon'
+import Inline from './UI/Inline'
 
 const Site = (props) => {
   const [collapsed, setCollapsed] = useState(true)
@@ -55,17 +56,11 @@ const Site = (props) => {
     <div className="site-item active-group shading-light justify-content-between align-items-start" aria-current="true" onClick={toggleCollapse}>
       <div>
         <h2 className="site-title">{props.title}</h2>
-        <div className="site-meta d-flex flex-row">
-          <span className="mr-3">
-            <Icon type={IconTypes.page} />{props.pages.length} page{props.pages.length !== 1 && 's'}
-          </span>
-          <span className="mx-3">
-            <Icon type={IconTypes.clock} />{elapsedTime}
-          </span>
-          <span className="mx-3">
-            <Icon type={props.status === 'passed' ? IconTypes.arrowUp : IconTypes.arrowDown} />{durationSinceLastStatusChange}
-          </span>
-        </div>
+        <Inline>
+          <Iconed icon={Icons.page}><span>{props.pages.length} page{props.pages.length !== 1 && 's'}</span></Iconed>
+          <Iconed icon={Icons.clock}>{elapsedTime}</Iconed>
+          <Iconed icon={props.status === 'passed' ? Icons.arrowUp : Icons.arrowDown}>{durationSinceLastStatusChange}</Iconed>
+        </Inline>
         <div className={`${collapsed ? 'collapse ' : ''}suite-content`} id={`suite-content-${props.id}`}>
           <SiteHistoryBar pages={props.pages} maxItems={14}/>
           <ul>{props.pages.map(page => {
