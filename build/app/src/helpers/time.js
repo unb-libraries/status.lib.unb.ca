@@ -16,6 +16,10 @@ export class DateTime {
   toMilliseconds = () => {
     return this._dt.toMillis()
   }
+
+  format = () => {
+    return this._dt.toLocaleString(LxDateTime.DATETIME_MED)
+  }
 }
 
 export class Interval {
@@ -61,9 +65,9 @@ class Duration {
     const units = {'day': this.days, 'hour': this.hours, 'minute': this.minutes}
     const [unit, number] = Object.entries(units).find(([_, value]) => value > 0) || [undefined, 0]
     if (unit) {
-      return '{} ago'.replace('{}', `${number} ${unit}${number !== 1 ? 's' : ''}`)
+      return `${number} ${unit}${number !== 1 ? 's' : ''}`
     }
-    return 'Less than a minute ago'
+    return false
   }
 }
 

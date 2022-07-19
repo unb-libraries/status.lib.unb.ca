@@ -1,8 +1,8 @@
 import SiteHistoryBar from './SiteHistoryBar'
 import Page from './Page'
 import Badge from './Badge'
-import { DateTime, Interval } from '../helpers/time'
 import { useState } from 'react'
+import DateTimestamp from './DateTimestamp'
 import Iconed, { Icons } from './UI/Icon'
 import Inline from './UI/Inline'
 
@@ -20,37 +20,8 @@ const Site = (props) => {
     ).length, 
   0)
 
-  const elapsedTime = Interval
-    .untilNow(DateTime.fromTimestamp(props.timestamp))
-    .duration()
-    .format()
-
-  let latestStatusChangeTimestamp = undefined
-  const siteErrors = [].concat(...props.pages.map(page => {
-    return [].concat(...page.tests.map(test => test.errors))
-  }))
-  if (props.status === 'passed') {
-    const sortByResolved = (err1, err2) => err1.resolved - err2.resolved
-    if (siteErrors.length > 0) {
-      latestStatusChangeTimestamp = siteErrors.sort(sortByResolved)[0].resolved
-    }
-  }
-  else {
-    const sortByOccurred = (err1, err2) => err1.occurred - err2.occurred
-    if (siteErrors.length > 0) {
-      latestStatusChangeTimestamp = siteErrors.sort(sortByOccurred)[0].occurred
-    }
-  }
-
-  if (latestStatusChangeTimestamp === undefined) {
-    const siteRuns = [].concat(...props.pages.map(page => [].concat(...page.tests.map(test => test.runs))))
-    latestStatusChangeTimestamp = Math.min(...siteRuns)
-  }
-
-  const latestStatusChangeTime = DateTime.fromTimestamp(latestStatusChangeTimestamp)
-  const durationSinceLastStatusChange = Interval.untilNow(latestStatusChangeTime)
-    .duration()
-    .format()
+  const siteRuns = () => [].concat(...props.pages.map(page => [].concat(...page.tests.map(test => test.runs))))
+  const siteErrors = [].concat(...props.pages.map(page => [].concat(...page.tests.map(test => test.errors))))
 
   return (
     <div className="site-item active-group shading-light justify-content-between align-items-start" aria-current="true" onClick={toggleCollapse}>
@@ -58,8 +29,15 @@ const Site = (props) => {
         <h2 className="site-title">{props.title}</h2>
         <Inline>
           <Iconed icon={Icons.page}><span>{props.pages.length} page{props.pages.length !== 1 && 's'}</span></Iconed>
-          <Iconed icon={Icons.clock}>{elapsedTime}</Iconed>
-          <Iconed icon={props.status === 'passed' ? Icons.arrowUp : Icons.arrowDown}>{durationSinceLastStatusChange}</Iconed>
+          <Iconed icon={Icons.clock}><DateTimestamp milliseconds={props.timestamp} elapsed={true}>{'{} ago'}</DateTimestamp></Iconed>
+          {siteErrors.length > 0 
+            ? props.status === 'passed'
+              ? <Iconed icon={Icons.arrowUp}><DateTimestamp milliseconds={Math.max(...siteErrors.map(error => error.resolved))} elapsed={true}>{'No errors for {}'}</DateTimestamp></Iconed>
+              : <Iconed icon={Icons.arrowDown}><DateTimestamp milliseconds={Math.max(...siteErrors.map(error => error.occurred))} elapsed={true}>{'Failing for {}'}</DateTimestamp></Iconed>
+            : props.status === 'passed'
+              ? <Iconed icon={Icons.arrowUp}><DateTimestamp milliseconds={Math.min(...siteRuns())} elapsed={true}>{'No errors for at least {}'}</DateTimestamp></Iconed>
+              : <Iconed icon={Icons.arrowDown}><DateTimestamp milliseconds={Math.min(...siteRuns())} elapsed={true}>{'Failing for at least {}'}</DateTimestamp></Iconed>
+          }
         </Inline>
         <div className={`${collapsed ? 'collapse ' : ''}suite-content`} id={`suite-content-${props.id}`}>
           <SiteHistoryBar pages={props.pages} maxItems={14}/>
