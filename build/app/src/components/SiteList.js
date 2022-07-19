@@ -10,8 +10,8 @@ const titleSort = (site, anotherSite) => {
 
 const SiteList = (props) => {
   const [params] = useSearchParams()
-  const expandable = params.get('expandable')
-  
+  const expandable = ['', '1', 'true'].includes(params.get('expandable'))
+
   const [refresh, setRefresh] = useState(true)
   const [sites, setSites] = useState([])
   const [groups, setGroups] = useState([])
