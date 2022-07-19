@@ -3,6 +3,7 @@ import Page from './Page'
 import Badge from './Badge'
 import { DateTime, Interval } from '../helpers/time'
 import { useState } from 'react'
+import Icon, { IconTypes } from './UI/Icon'
 
 const Site = (props) => {
   const [collapsed, setCollapsed] = useState(true)
@@ -56,13 +57,13 @@ const Site = (props) => {
         <h2 className="site-title">{props.title}</h2>
         <div className="site-meta d-flex flex-row">
           <span className="mr-3">
-            <i className="bi bi-file-earmark-text"/>{props.pages.length} page{props.pages.length !== 1 && 's'}
+            <Icon type={IconTypes.page} />{props.pages.length} page{props.pages.length !== 1 && 's'}
           </span>
           <span className="mx-3">
-            <i className="bi bi-clock"/>{elapsedTime}
+            <Icon type={IconTypes.clock} />{elapsedTime}
           </span>
           <span className="mx-3">
-            <i className={`bi bi-${props.status === 'passed' ? 'arrow-down' : 'arrow-up'}`}/>{durationSinceLastStatusChange}
+            <Icon type={props.status === 'passed' ? IconTypes.arrowUp : IconTypes.arrowDown} />{durationSinceLastStatusChange}
           </span>
         </div>
         <div className={`${collapsed ? 'collapse ' : ''}suite-content`} id={`suite-content-${props.id}`}>
