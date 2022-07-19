@@ -109,6 +109,11 @@ h3 {
     text-decoration: none;
 }
 
+.site-meta span {
+    display: inline-block;
+    min-width: 6rem;
+}
+
 .site-meta a:hover {
     text-decoration: underline;
 }
