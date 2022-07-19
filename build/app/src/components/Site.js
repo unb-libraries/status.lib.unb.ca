@@ -1,5 +1,5 @@
 import SiteHistoryBar from './SiteHistoryBar'
-import Page from './Page'
+import PageList from './PageList'
 import Badge from './Badge'
 import { useState } from 'react'
 import DateTimestamp from './DateTimestamp'
@@ -41,12 +41,7 @@ const Site = (props) => {
         </Inline>
         <div className={`${collapsed ? 'collapse ' : ''}suite-content`} id={`suite-content-${props.id}`}>
           <SiteHistoryBar pages={props.pages} maxItems={14}/>
-          <ul>{props.pages.map(page => {
-            return <li key={page.id} className="suite">
-              <Page id={page.id} title={page.title} href={`${props.url}${page.path}`} tests={page.tests} />
-              </li>
-          })}
-          </ul>
+            <PageList pages={props.pages} />
         </div>
       </div>
       <Badge status={props.status} tests={testTotal} errors={errorTotal}/>
