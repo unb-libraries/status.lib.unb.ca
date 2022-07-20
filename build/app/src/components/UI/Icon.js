@@ -1,16 +1,17 @@
 import React from "react"
 
 export const Icons = {
-  clock: 'clock',
   arrowUp: 'arrow-up',
   arrowDown: 'arrow-down',
-  page: 'file-earmark-text'
+  clock: 'clock',
+  page: 'file-earmark-text',
+  square: 'square-fill'
 }
 
 const Iconed = (props) => {
   return (
     <React.Fragment>
-      <i className={`bi bi-${props.icon}`} />
+      <i className={`bi bi-${props.icon}${props.className ? ' ' + props.className : ''}`} />
       {props.children}
     </React.Fragment>
   )

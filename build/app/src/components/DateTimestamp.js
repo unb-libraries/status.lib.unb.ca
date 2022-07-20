@@ -27,7 +27,7 @@ const DateTimestamp = (props) => {
   }
 
   return (
-    <div className="datetimestamp">
+    <div className="tooltip-target">
       <span onMouseEnter={tooltipToggler.bind(null, true)} onMouseLeave={tooltipToggler.bind(null, false)}>{formatted}</span>
       {tooltipVisible && <Tooltip content={tooltipContent} />}
     </div>

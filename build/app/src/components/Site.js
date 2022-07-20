@@ -41,7 +41,7 @@ const Site = (props) => {
         </Inline>
         {(props.expandable && !collapsed) && (
           <div className={`${props.collapsed ? 'collapse ' : ''}suite-content`} id={`suite-content-${props.id}`}>
-            <SiteHistoryBar pages={props.pages} maxItems={14}/>
+            <SiteHistoryBar siteId={props.id} pages={props.pages} maxItems={14}/>
             <PageList pages={props.pages} siteUrl={props.url}/>
           </div>
         )}

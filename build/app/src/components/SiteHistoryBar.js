@@ -1,4 +1,5 @@
-import { setTime, formatTime } from "../helpers/time"
+import { setTime } from "../helpers/time"
+import SiteHistoryBarItem from "./SiteHistoryBarItem"
 
 const SiteHistoryBar = (props) => {
 
@@ -37,16 +38,12 @@ const SiteHistoryBar = (props) => {
     }
   })
 
-  const items = Object.entries(history).reverse().map(([timestamp, errors]) => {
-    const date = formatTime(timestamp, {y: 'numeric', m: 'long', d: 'numeric'})
-    const tooltipText = errors !== undefined
-      ? `${date}: ${errors} error${errors !== 1 ? 's' : ''}`
-      : `${date}: Did not run`
-    return <i key={timestamp} className={`bi bi-square-fill run run-${errors === undefined ? 'unknown' : (errors === 0 ? 'passed' : 'failed')}`} data-toggle="tooltip" data-placement="bottom" title={tooltipText} />
-  })
-
   return (
-    <span className="site-history ms-3">{items}</span>
+    <span className="site-history ms-3">
+      {Object.entries(history).reverse().map(([timestamp, errors]) => {
+        return <SiteHistoryBarItem key={`sh-item-${props.siteId}-${timestamp}`} date={timestamp} errors={errors} />
+      })}
+    </span>
   )
 }
 
