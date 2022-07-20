@@ -25,14 +25,14 @@ const SiteHistoryBar = (props) => {
 
   const history = {}
   dates.forEach(date => history[date] = undefined)
-  runs.forEach(runDate => history[runDate] = 0)
+  runs.forEach(runDate => history[runDate] = [])
   errors.forEach(error => {
     let occurredDate = setTime(error.occurred, 0, 0, 0).getTime()
     const resolvedDate = setTime(error.resolved || now, 0, 0, 0).getTime()
 
     while (occurredDate <= resolvedDate) {
       if (history[occurredDate] !== undefined) {
-        history[occurredDate]++
+        history[occurredDate].push(error)
       }
       occurredDate += 86400000
     }

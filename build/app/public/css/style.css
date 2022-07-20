@@ -118,11 +118,6 @@ h3 {
     text-decoration: underline;
 }
 
-.datetimestamp {
-    position: relative;
-    display: inline-block;
-}
-
 .page-title {
     margin-top: 1rem;
 }
@@ -216,6 +211,11 @@ h3 {
     content: "\F622";
 }
 
+.tooltip-target {
+    position: relative;
+    display: inline-block;
+}
+
 .tooltip-box {
     position: absolute;
     z-index: 10;
@@ -227,6 +227,17 @@ h3 {
     font-size: 0.75rem;
     border-radius: 0.3rem;
     width: max-content;
+}
+
+.error-table {
+    margin-top: 12px;
+}
+
+.error-table td {
+    min-width: 85px;
+    background: #282828;
+    border: 2px solid black;
+    padding: 2px 6px;
 }
 
 #footer {
