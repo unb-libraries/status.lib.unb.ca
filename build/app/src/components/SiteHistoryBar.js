@@ -9,7 +9,10 @@ const SiteHistoryBar = (props) => {
         error.test = test
         return error
       })), 
-    [])), 
+    []).map(error => {
+      error.page = page
+      return error
+    })), 
   [])
 
   const runs = props.pages.reduce(
