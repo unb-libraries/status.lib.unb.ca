@@ -5,7 +5,10 @@ const SiteHistoryBar = (props) => {
 
   const errors = props.pages.reduce(
     (siteErrors, page) => siteErrors.concat(...page.tests.reduce(
-      (pageErrors, test) => pageErrors.concat(...test.errors), 
+      (pageErrors, test) => pageErrors.concat(...test.errors.map(error => {
+        error.test = test
+        return error
+      })), 
     [])), 
   [])
 

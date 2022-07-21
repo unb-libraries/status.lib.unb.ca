@@ -17,10 +17,11 @@ const SiteHistoryBarItem = (props) => {
       <div>{props.errors !== undefined ? `Total errors: ${props.errors.length}` : 'Did not run'}</div>
       {props.errors && props.errors.length > 0 ? (
         <table className='error-table'>
-          <thead><tr><th>Occurred</th><th>Resolved</th><th>Duration</th></tr></thead>
+          <thead><tr><th>Test</th><th>Occurred</th><th>Resolved</th><th>Duration</th></tr></thead>
           <tbody>
           {props.errors.map(error => 
             <tr key={error.type}>
+              <td>{error.test.title.length <= 30 ? error.test.title : `${error.test.title.slice(0,30)}...`}</td>
               <td>{DateTime.fromTimestamp(Math.max(+error.occurred, +props.date)).format(DateTimeFormat.TIME)}</td>
               <td>{error.resolved && error.resolved <= endOfDay ? DateTime.fromTimestamp(error.resolved).format(DateTimeFormat.TIME) : ''}</td>
               <td>{Duration.fromMilliseconds((error.resolved ? Math.min(+error.resolved, endOfDay) : Math.min(endOfDay, DateTime.now().toMilliseconds())) - Math.max(+error.occurred, +props.date)).format()}</td>
