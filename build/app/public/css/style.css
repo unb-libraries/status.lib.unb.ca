@@ -145,7 +145,7 @@ h3 {
 }
 
 .badge-100 {
-    background-color: #3d9131;
+    background-color: #198754;
 }
 
 .badge-99 {
@@ -158,7 +158,7 @@ h3 {
 }
 
 .badge-20 {
-    background-color: #8a0909;
+    background-color: #900;
 }
 
 .bi.run {
@@ -166,7 +166,7 @@ h3 {
 }
 
 .bi.run.run-passed {
-    color: #3d9131;
+    color: #198754;
 }
 
 .bi.run.run-failed {
