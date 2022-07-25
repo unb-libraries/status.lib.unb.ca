@@ -196,7 +196,7 @@ h3 {
 }
 
 .test.test-passed {
-    color: #206620;
+    color: #198754;
 }
 
 .test.test-passed::marker {
@@ -204,7 +204,7 @@ h3 {
 }
 
 .test.test-failed {
-    color: #8a0909;
+    color: #900;
 }
 
 .test.test-failed::marker, .suite.suite-failed::marker {
