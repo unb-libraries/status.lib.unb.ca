@@ -3,8 +3,8 @@ import PageList from './PageList'
 import Badge from './Badge'
 import { useState } from 'react'
 import DateTimestamp from './DateTimestamp'
-import Iconed, { Icons } from './UI/Icon'
-import Inline from './UI/Inline'
+import Iconed, { Icons } from '../UI/Icon'
+import Inline from '../UI/Inline'
 
 const Site = (props) => {
   const [collapsed, setCollapsed] = useState(true)
@@ -40,7 +40,7 @@ const Site = (props) => {
           }
         </Inline>
         {(props.expandable && !collapsed) && (
-          <div className={`${props.collapsed ? 'collapse ' : ''}suite-content`} id={`suite-content-${props.id}`}>
+          <div className="suite-content" id={`suite-content-${props.id}`}>
             <SiteHistoryBar siteId={props.id} pages={props.pages} maxItems={14}/>
             <PageList pages={props.pages} siteUrl={props.url}/>
           </div>

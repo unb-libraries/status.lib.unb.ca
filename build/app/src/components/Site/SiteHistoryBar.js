@@ -1,4 +1,4 @@
-import { setTime } from "../helpers/time"
+import { setTime } from "../../helpers/time"
 import SiteHistoryBarItem from "./SiteHistoryBarItem"
 
 const SiteHistoryBar = (props) => {

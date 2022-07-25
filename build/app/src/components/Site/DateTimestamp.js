@@ -1,6 +1,6 @@
 import React, { useState } from "react"
-import { DateTime, Interval } from "../helpers/time"
-import Tooltip from "./UI/Tooltip"
+import { DateTime, Interval } from "../../helpers/time"
+import Tooltip from "../UI/Tooltip"
 
 const DateTimestamp = (props) => {
   const [tooltipVisible, setTooltipVisible] = useState(false)

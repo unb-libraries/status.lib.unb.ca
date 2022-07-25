@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import Iconed, { Icons } from './UI/Icon'
-import Tooltip from './UI/Tooltip'
-import { DateTime, DateTimeFormat, formatTime, Interval, Duration } from '../helpers/time'
+import Iconed, { Icons } from '../UI/Icon'
+import Tooltip from '../UI/Tooltip'
+import { DateTime, DateTimeFormat, Duration } from '../../helpers/time'
 
 const SiteHistoryBarItem = (props) => {
   const className = props.errors === undefined

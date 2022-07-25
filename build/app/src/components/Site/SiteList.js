@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import DynamicLayout from './layout/DynamicLayout'
-import GroupFilter from './GroupFilter'
+import DynamicLayout from '../Layout/DynamicLayout'
+import GroupFilter from '../UI/GroupFilter'
 import Site from './Site'
 import { useSearchParams } from 'react-router-dom'
 
