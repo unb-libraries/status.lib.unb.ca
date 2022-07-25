@@ -41,34 +41,38 @@ h3 {
 }
 
 .group-filter .btn-primary,
-.group-filter .btn-primary:hover {
-    background-color: #900;
-    border-color: #900;
+.group-filter .btn-check:checked + .btn-primary,
+.group-filter .btn-outline-primary:hover {
+    background-color: #000;
+    border-color: #000;
+    color: #fff;
+}
+
+.group-filter .btn-outline-primary,
+.group-filter .btn-primary:hover,
+.group-filter .btn-check:checked:hover + .btn-primary {
+    border-color: #000;
+    background-color: #fff;
+    color: #000;
 }
 
 .group-filter .btn .label::after {
-    margin-left: 0.5rem;
     vertical-align: bottom;
     font-family: 'bootstrap-icons';
 }
 
 .group-filter .btn-primary .label::after,
-.group-filter .btn-secondary:hover .label::after {
+.group-filter .btn-outline-primary:hover .label::after {
     content: "\F26D"; /* check-square */
 }
 
-.group-filter .btn-secondary .label::after,
+.group-filter .btn-outline-primary .label::after,
 .group-filter .btn-primary:hover .label::after {
     content: "\F629"; /* x-square */
 }
 
-.group-filter .btn-secondary:hover {
-    background-color: #6c757d;
-    border-color: #6c757d;
-}
-
 .group-filter .btn-primary:focus,
-.group-filter .btn-secondary:focus {
+.group-filter .btn-outline-primary:focus {
     box-shadow: none;
 }
 

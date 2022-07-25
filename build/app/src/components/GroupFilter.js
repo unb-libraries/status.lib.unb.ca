@@ -34,11 +34,15 @@ const GroupFilter = props => {
 
   return (
     <div>
-      <div className="group-filter mb-3">
+      <div class="group-filter mb-3 me-3 btn-group all-none" role="group">
         <Group key="all" id="all" label="ALL" onClick={_ => dispatch({type: 'set', groups: props.groups, value: true})} />
         <Group key="none" id="none" label="NONE" onClick={_ => dispatch({type: 'set', groups: props.groups, value: false})} />
+      </div>
+
+      <div class="group-filter mb-3 btn-group" role="group">
         {buttons}
       </div>
+
       {props.children.filter(child =>
         child.props.groups.some(group => selection[group])
       )}

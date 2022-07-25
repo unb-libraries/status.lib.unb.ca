@@ -1,15 +1,13 @@
+import React from "react"
+
 const Group = props => {
-  let selectedClassName = 'btn'
-  if (props.selected !== undefined) {
-    selectedClassName = 'btn-'.concat(props.selected ? 'primary' : 'secondary')
-  }
+  const selectedClassName = `btn-${props.selected ? 'primary' : 'outline-primary'}`
   
   return (
-    <button
-      className={`btn ${selectedClassName} ms-0 mx-1`}
-      onClick={props.onClick}>
-      <span className="label">{props.label}</span>
-    </button>
+    <React.Fragment>
+      <input type="checkbox" className={`btn-check ${selectedClassName}`} id={`group-${props.id}`} onChange={props.onClick} checked={props.selected ? 'selected' : ''} />
+      <label class={`btn ${selectedClassName}`} for={`group-${props.id}`}>{props.label}</label>
+    </React.Fragment>
   )
 }
 
