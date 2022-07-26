@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import Menu from './Menu'
+import Container from '../UI/Container'
+import { NavLink } from "react-router-dom"
+import classes from './Header.module.css'
 
 const Header = () => {
   const [collapsed, setCollapsed] = useState(true)
@@ -8,22 +10,31 @@ const Header = () => {
   const navbarToggle = () => {
     setCollapsed((collapsed) => !collapsed)
   }
+
+  const links = {
+    '/': 'All',
+    '/errored': 'Errored',
+    '/recently-errored': 'Recently Errored',
+  }
   
   return (
     <header>
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
-        <div className="container">
-          <Link className="navbar-brand" to="/">
+      <Container>
+        <nav className={classes.navbar}>
+          <Link className={classes.logo} to="/">
             <img src="/img/unb-libraries-red-black.png" alt="UNB Libraries Logo" />
           </Link>
-          <button className={`navbar-toggler${collapsed ? ' collapsed' : ''}`} type="button" onClick={navbarToggle} aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span className="navbar-toggler-icon"></span>
-          </button>
-          <div id="navbarSupportedContent" className={`collapse navbar-collapse${!collapsed ? ' show' : ''}`}>
-            <Menu />
+          <button className={classes.burger} type="button" onClick={navbarToggle} aria-controls="nav-menu" aria-expanded="false" aria-label="Toggle navigation" />
+          <div id="nav-menu" className={`${classes['nav-menu']}`}>
+            <ul className={collapsed && classes.collapsed}>
+              {Object.entries(links).map(([path, label]) => 
+                <li key={path} className={classes['nav-item']}>
+                  <NavLink to={`${path}${window.location.search}`} className={({ isActive }) => isActive && classes.active} aria-current="page">{label}</NavLink>
+                </li>)}
+            </ul>
           </div>
-        </div>
-      </nav>
+        </nav>
+      </Container>
     </header>
   )
 }

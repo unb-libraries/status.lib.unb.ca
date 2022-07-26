@@ -1,0 +1,22 @@
+.tooltip-box {
+  position: absolute;
+  z-index: 10;
+  top: 25px;
+  left: 50%;
+  background: black;
+  color: white;
+  padding: .5rem;
+  font-size: 0.75rem;
+  border-radius: 0.3rem;
+  width: max-content;
+}
+
+.tooltip-box h4 {
+  font-size: 1.25rem;
+  margin: 0;
+}
+
+.tooltip-target {
+  position: relative;
+  display: inline-block;
+}

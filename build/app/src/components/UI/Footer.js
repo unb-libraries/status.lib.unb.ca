@@ -1,9 +1,12 @@
+import Container from './Container'
+import './Footer.module.css'
+
 const Footer = () => {
   return (
-    <footer id="footer">
-      <div className="container">
-        <span className="text-muted">©UNB Libraries</span>
-      </div>
+    <footer>
+      <Container>
+        <span>©UNB Libraries</span>
+      </Container>
     </footer>
   )
 }

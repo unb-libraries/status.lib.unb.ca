@@ -1,10 +1,11 @@
 import SiteHistoryBar from './SiteHistoryBar'
 import PageList from './PageList'
-import Badge from './Badge'
+import StatusIndicator from './StatusIndicator'
 import { useState } from 'react'
 import DateTimestamp from './DateTimestamp'
 import Iconed, { Icons } from '../UI/Icon'
 import Inline from '../UI/Inline'
+import classes from './Site.module.css'
 
 const Site = (props) => {
   const [collapsed, setCollapsed] = useState(true)
@@ -24,9 +25,9 @@ const Site = (props) => {
   const siteErrors = [].concat(...props.pages.map(page => [].concat(...page.tests.map(test => test.errors))))
 
   return (
-    <div className={`site-item ${props.expandable && 'expandable'} active-group shading-light justify-content-between align-items-start`} aria-current="true" onClick={toggleCollapse}>
-      <div>
-        <h2 className="site-title">{props.title}</h2>
+    <div className={`${classes.site} ${props.expandable && classes.expandable}`} aria-current="true" onClick={toggleCollapse}>
+      <div className={classes.content}>
+        <h2 className={classes.title}>{props.title}</h2>
         <Inline>
           <Iconed icon={Icons.page}><span>{props.pages.length} page{props.pages.length !== 1 && 's'}</span></Iconed>
           <Iconed icon={Icons.clock}><DateTimestamp milliseconds={props.timestamp} elapsed={true} text={'{} ago'} altText={'Less than a minute'} /></Iconed>
@@ -40,13 +41,13 @@ const Site = (props) => {
           }
         </Inline>
         {(props.expandable && !collapsed) && (
-          <div className="suite-content" id={`suite-content-${props.id}`}>
+          <div>
             <SiteHistoryBar siteId={props.id} pages={props.pages} maxItems={14}/>
             <PageList pages={props.pages} siteUrl={props.url}/>
           </div>
         )}
       </div>
-      <Badge status={props.status} tests={testTotal} errors={errorTotal}/>
+      <StatusIndicator status={props.status} tests={testTotal} errors={errorTotal}/>
     </div>
   )
 }

@@ -3,6 +3,7 @@ import DynamicLayout from '../Layout/DynamicLayout'
 import GroupFilter from '../UI/GroupFilter'
 import Site from './Site'
 import { useSearchParams } from 'react-router-dom'
+import classes from './SiteList.module.css'
 
 const titleSort = (site, anotherSite) => {
   return site.title > anotherSite.title ? 1 : (site.title < anotherSite.title ? -1 : 0)
@@ -47,7 +48,7 @@ const SiteList = (props) => {
   return (
     <DynamicLayout>
       {sites.length > 0 &&
-        <ul className="site-list list-group">
+        <ul className={classes['site-list']}>
           <GroupFilter groups={groups}>
             {sites.map(site => 
               <li key={site.id} groups={site.groups}>

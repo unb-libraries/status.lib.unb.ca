@@ -1,0 +1,10 @@
+.site-list {
+  padding: 0;
+}
+
+.site-list li {
+  list-style-type: none;
+  margin: .25rem 0;
+  padding-left: 0;
+  margin-bottom: 0;
+}

@@ -1,0 +1,35 @@
+.title {
+  margin-top: 1rem;
+  margin-bottom: .25rem;
+  font-size: 1.1rem;
+}
+
+.url {
+  color: var(--red);
+  display: block;
+  font-size: 0.9rem;
+  text-decoration: none;
+  margin-top: -0.5rem;
+  margin-bottom: 0.4rem;
+  width: fit-content;
+}
+
+.url:hover {
+  color: var(--red);
+  text-decoration: underline;
+}
+
+.page, .test {
+  --pl: 0.5rem;
+  padding-left: var(--pl);
+}
+
+.test-passed {
+  padding-left: var(--pl);
+  color: var(--green);
+}
+
+.test-failed {
+  padding-left: var(--pl);
+  color: var(--red);
+}

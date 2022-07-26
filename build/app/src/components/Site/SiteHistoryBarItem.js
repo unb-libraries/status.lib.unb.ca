@@ -2,21 +2,23 @@ import { useState } from 'react'
 import Iconed, { Icons } from '../UI/Icon'
 import Tooltip from '../UI/Tooltip'
 import { DateTime, DateTimeFormat, Duration } from '../../helpers/time'
+import classes from './SiteHistoryBarItem.module.css'
+import { tooltipClasses } from '../UI/Tooltip'
 
 const SiteHistoryBarItem = (props) => {
-  const className = props.errors === undefined
-    ? 'run run-unknown' 
+  const status = props.errors === undefined
+    ? 'status-unknown' 
     : props.errors.length === 0 
-      ? 'run run-passed' 
-      : 'run run-failed'
+      ? 'status-passed'
+      : 'status-failed'
 
   const endOfDay = +props.date + 86399999
   const tooltipContent = (
-    <div className="p-2">
+    <div>
       <h4>{DateTime.fromTimestamp(+props.date).format(DateTimeFormat.DATE)}</h4>
       <div>{props.errors !== undefined ? `Total errors: ${props.errors.length}` : 'Did not run'}</div>
       {props.errors && props.errors.length > 0 ? (
-        <table className='error-table'>
+        <table className={classes['error-table']}>
           <thead><tr><th>Page</th><th>Test</th><th>Occurred</th><th>Resolved</th><th>Duration</th></tr></thead>
           <tbody>
           {props.errors.map(error => 
@@ -40,8 +42,8 @@ const SiteHistoryBarItem = (props) => {
   }
 
   return (
-    <div className='tooltip-target' onMouseEnter={tooltipToggler.bind(null, true)} onMouseLeave={tooltipToggler.bind(null, false)}>
-      <Iconed icon={Icons.square} className={className} />
+    <div className={`${tooltipClasses.tooltipTarget} ${classes['site-history-item']} ${classes[status]}`} onMouseEnter={tooltipToggler.bind(null, true)} onMouseLeave={tooltipToggler.bind(null, false)}>
+      <Iconed icon={Icons.square} />
       {tooltipVisible && <Tooltip content={tooltipContent} />}
     </div>
   )

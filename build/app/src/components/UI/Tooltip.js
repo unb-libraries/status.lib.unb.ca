@@ -1,7 +1,12 @@
+import classes from './Tooltip.module.css'
+
 const Tooltip = (props) => {
   return (
-    <div className="tooltip-box">{props.content}</div>
+    <div className={classes['tooltip-box']}>{props.content}</div>
   )
 }
 
 export default Tooltip
+export const tooltipClasses = {
+  tooltipTarget: classes['tooltip-target']
+}

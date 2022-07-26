@@ -1,5 +1,6 @@
 import { setTime } from "../../helpers/time"
 import SiteHistoryBarItem from "./SiteHistoryBarItem"
+import classes from './SiteHistoryBar.module.css'
 
 const SiteHistoryBar = (props) => {
 
@@ -45,11 +46,13 @@ const SiteHistoryBar = (props) => {
   })
 
   return (
-    <span className="site-history ms-3">
+    <ul className={classes['site-history']} >
       {Object.entries(history).reverse().map(([timestamp, errors]) => {
-        return <SiteHistoryBarItem key={`sh-item-${props.siteId}-${timestamp}`} date={timestamp} errors={errors} />
+        return (
+          <li key={`sh-item-${props.siteId}-${timestamp}`}><SiteHistoryBarItem date={timestamp} errors={errors} /></li>
+        )
       })}
-    </span>
+    </ul>
   )
 }
 

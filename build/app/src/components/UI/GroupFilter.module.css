@@ -1,0 +1,14 @@
+.container .group:first-child {
+  margin-left: 0;
+}
+
+.container .group:last-child {
+  margin-right: 0;
+}
+
+.group {
+  position: relative;
+  display: inline-flex;
+  vertical-align: middle;
+  margin: 1rem .5rem;
+}

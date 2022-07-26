@@ -1,0 +1,8 @@
+.site-history {
+  margin-right: .25rem;
+  display: flex;
+}
+
+.site-history li {
+  display: inline-flex;
+}

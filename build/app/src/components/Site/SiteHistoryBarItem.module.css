@@ -1,0 +1,27 @@
+.site-history-item {
+  width: 1rem;
+  height: 1rem;
+  margin: .75rem .1rem;
+}
+
+.status-passed {
+  color: var(--green);
+}
+
+.status-failed {
+  color: var(--red);
+}
+
+.status-unknown {
+  color: var(--grey);
+}
+
+.error-table {
+  margin-top: 12px;
+}
+
+.error-table td {
+  min-width: 85px;
+  background: #282828;
+  padding: 2px 6px;
+}

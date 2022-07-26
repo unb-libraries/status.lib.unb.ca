@@ -1,0 +1,27 @@
+.site {
+  display: flex;
+  position: relative;
+  padding: .5rem 1rem;
+  color: #212529;
+  text-decoration: none;
+  border: 1px solid rgba(0,0,0,.125);
+  margin: .15rem 0;
+  background-color: var(--almost-white);
+  justify-content: space-between !important;
+  align-items: flex-start !important;
+}
+
+.content {
+  width: 100%;
+}
+
+.expandable:hover {
+  cursor: pointer;
+}
+
+.title {
+  font-size: 1.5rem;
+  margin-bottom: .25rem;
+  margin-top: 0;
+  color: #900;
+}

@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { DateTime, Interval } from "../../helpers/time"
-import Tooltip from "../UI/Tooltip"
+import Tooltip, { tooltipClasses } from "../UI/Tooltip"
 
 const DateTimestamp = (props) => {
   const [tooltipVisible, setTooltipVisible] = useState(false)
@@ -27,7 +27,7 @@ const DateTimestamp = (props) => {
   }
 
   return (
-    <div className="tooltip-target">
+    <div className={tooltipClasses.tooltipTarget}>
       <span onMouseEnter={tooltipToggler.bind(null, true)} onMouseLeave={tooltipToggler.bind(null, false)}>{formatted}</span>
       {tooltipVisible && <Tooltip content={tooltipContent} />}
     </div>

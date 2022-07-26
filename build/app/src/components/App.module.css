@@ -1,0 +1,18 @@
+:root {
+  --red: #900;
+  --orange: #e06d0f;
+  --yellow: #f3d52a;
+  --green: #198754;
+  --white: #fff;
+  --almost-white: #f8f9fa;
+  --hint-of-grey: #e4e4e4;
+  --grey: #b9b9b9;
+  --dark-grey: #282828;
+  --black: #000;
+}
+
+body {
+  background-color: var(--white);
+  margin: 0;
+  font-family: "ProximaNovaA-Thin","Century Gothic",AppleGothic,Arial,sans-serif;
+}
