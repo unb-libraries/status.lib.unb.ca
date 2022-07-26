@@ -1,6 +1,7 @@
 .site-history {
   margin-right: .25rem;
   display: flex;
+  padding-left: 0;
 }
 
 .site-history li {
