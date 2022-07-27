@@ -26,10 +26,10 @@ const Header = () => {
           </Link>
           <button className={classes.burger} type="button" onClick={navbarToggle} aria-controls="nav-menu" aria-expanded="false" aria-label="Toggle navigation" />
           <div id="nav-menu" className={`${classes['nav-menu']}`}>
-            <ul className={collapsed && classes.collapsed}>
+            <ul className={collapsed ? classes.collapsed : ''}>
               {Object.entries(links).map(([path, label]) => 
                 <li key={path} className={classes['nav-item']}>
-                  <NavLink to={`${path}${window.location.search}`} className={({ isActive }) => isActive && classes.active} aria-current="page">{label}</NavLink>
+                  <NavLink to={`${path}${window.location.search}`} className={({ isActive }) => isActive ? classes.active : ''} aria-current="page">{label}</NavLink>
                 </li>)}
             </ul>
           </div>
