@@ -19,8 +19,10 @@ const SiteHistoryBar = (props) => {
   const runs = props.pages.reduce(
     (siteRuns, page) => siteRuns.concat(...page.tests.reduce(
       (pageRuns, test) => pageRuns.concat(...test.runs), 
-    [])), 
-  [])
+    [])), [])
+    .reverse()
+    .filter((run, index, runs) => runs.indexOf(run) === index)
+    .slice(0,14)
 
   const now = Date.now()
   const today = setTime(now, 0, 0, 0)
