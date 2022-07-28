@@ -2,10 +2,11 @@ import React from "react"
 import Container from "../UI/Container";
 import Footer from '../UI/Footer';
 import Header from '../UI/Header';
+import classes from './Full.module.css'
 
 const Full = (props) => {
   return (
-    <React.Fragment>
+    <div className={classes.main}>
       <Header />
       <Container>
         <h1>Systems & Services</h1>
@@ -13,7 +14,7 @@ const Full = (props) => {
         {props.children}
       </Container>
       <Footer />
-    </React.Fragment>
+    </div>
   )  
 }
 
