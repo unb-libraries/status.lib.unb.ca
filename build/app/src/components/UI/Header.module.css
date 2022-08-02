@@ -26,7 +26,7 @@ header {
 
 .nav-menu {
   display: flex;
-  flex-basis: auto;
+  flex-basis: 100%;
 }
 
 .nav-menu ul {
@@ -82,6 +82,7 @@ header {
 @media (min-width: 992px) {
   .nav-menu {
     display: inline-flex;
+    flex-basis: auto;
   }
 
   .nav-menu ul {
