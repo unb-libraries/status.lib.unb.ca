@@ -42,7 +42,7 @@ const SiteHistoryBarItem = (props) => {
   }
 
   return (
-    <div className={`${tooltipClasses.tooltipTarget} ${classes['site-history-item']} ${classes[status]}`} onMouseEnter={tooltipToggler.bind(null, true)} onMouseLeave={tooltipToggler.bind(null, false)}>
+    <div className={`${tooltipClasses.tooltipTarget} ${classes['site-history-item']} ${classes[status]}`} onClick={e => e.stopPropagation()} onMouseEnter={tooltipToggler.bind(null, true)} onMouseLeave={tooltipToggler.bind(null, false)}>
       <Iconed icon={Icons.square} />
       {tooltipVisible && <Tooltip content={tooltipContent} />}
     </div>

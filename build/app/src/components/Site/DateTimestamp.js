@@ -22,13 +22,13 @@ const DateTimestamp = (props) => {
     formatted = props.text.replace('{}', formatted)
   }
 
-  const tooltipToggler = (visible) => {
+  const toogleTooltip = (visible) => {
     setTooltipVisible(visible)
   }
 
   return (
     <div className={tooltipClasses.tooltipTarget}>
-      <span onMouseEnter={tooltipToggler.bind(null, true)} onMouseLeave={tooltipToggler.bind(null, false)}>{formatted}</span>
+      <span onClick={e => e.stopPropagation()} onMouseEnter={toogleTooltip.bind(null, true)} onMouseLeave={toogleTooltip.bind(null, false)}>{formatted}</span>
       {tooltipVisible && <Tooltip content={tooltipContent} />}
     </div>
   )
