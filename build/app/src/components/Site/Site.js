@@ -28,8 +28,8 @@ const Site = (props) => {
     <div className={`${classes.site} ${props.expandable && classes.expandable}`} aria-current="true" onClick={toggleCollapse}>
       <div className={classes.content}>
         <h2 className={classes.title}>{props.title}</h2>
-        <Inline>
-          <Iconed icon={Icons.page}><span>{props.pages.length} page{props.pages.length !== 1 && 's'}</span></Iconed>
+        <Inline itemClassName={classes.meta}>
+          <Iconed icon={Icons.page}>{props.pages.length} page{props.pages.length !== 1 && 's'}</Iconed>
           <Iconed icon={Icons.clock}><DateTimestamp milliseconds={props.timestamp} elapsed={true} text={'{} ago'} altText={'Less than a minute'} /></Iconed>
           {siteErrors.length > 0 
             ? props.status === 'passed'

@@ -15,6 +15,15 @@
   width: 100%;
 }
 
+.meta {
+  margin: 0 1rem;
+  display: flex;
+}
+
+.meta:first-child {
+  margin-left: 0;
+}
+
 .expandable:hover {
   cursor: pointer;
 }
