@@ -8,7 +8,24 @@
 
 .group {
   position: relative;
-  display: inline-flex;
+  display: flex;
+  margin: 1rem 0;
   vertical-align: middle;
-  margin: 1rem .5rem;
+  flex-direction: column;
+}
+
+.collapsed {
+  display: none;
+}
+
+@media (min-width: 992px) {
+  .group {
+    display: inline-flex;
+    flex-direction: row;
+    margin: 1rem .5rem;
+  }
+
+  .collapsed {
+    display: inline-flex;
+  }
 }

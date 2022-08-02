@@ -4,7 +4,7 @@
   --border-radius: .5rem;
   background-color: transparent;
   border: var(--border);
-  border-right: 0;
+  border-top: 0;
   padding: .3rem .85rem;
   font-size: 1rem;
   line-height: 1.5;
@@ -15,18 +15,43 @@
   background-color: var(--dark-grey);
 }
 
-.filter:last-child {
-  border-right: var(--border);
+.filter:first-child {
+  border-top: var(--border);
+  border-top-left-radius: var(--border-radius);
   border-top-right-radius: var(--border-radius);
-  border-bottom-right-radius: var(--border-radius)
 }
 
-.filter:first-child {
-  border-top-left-radius: var(--border-radius);
-  border-bottom-left-radius: var(--border-radius)
+.filter:last-child {
+  border-bottom-left-radius: var(--border-radius);
+  border-bottom-right-radius: var(--border-radius);
 }
 
 .active {
-    background-color: var(--black);
-    color: var(--white);
+  background-color: var(--black);
+  color: var(--white);
+}
+
+@media (min-width: 992px) {
+  .filter {
+    border-right: 0;
+    border-top: var(--border);
+  }
+
+  .filter:first-child {
+    border-top-left-radius: var(--border-radius);
+    border-top-right-radius: 0;
+    border-bottom-left-radius: var(--border-radius);
+  }
+
+  .filter:last-child,
+  [data-type="multi"]:nth-child(2) {
+    border-right: var(--border);
+    border-top-right-radius: var(--border-radius);
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: var(--border-radius);
+  }
+
+  [data-type="toggler"] {
+    display: none;
+  }
 }

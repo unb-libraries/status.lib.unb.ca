@@ -1,4 +1,4 @@
-import { useReducer } from 'react'
+import { useReducer, useState } from 'react'
 import Group from './Group'
 import classes from './GroupFilter.module.css'
 
@@ -20,6 +20,11 @@ const selectionReducer = (state, action) => {
 
 const GroupFilter = props => {
   const [selection, dispatch] = useReducer(selectionReducer, set(props.groups, true))
+  const [collapsed, setCollasped] = useState(true)
+
+  const toggleCollapsed = () => {
+    setCollasped(collapsed => !collapsed)
+  }
 
   const buttons = props.groups.map(group => {
     return (
@@ -35,12 +40,13 @@ const GroupFilter = props => {
 
   return (
     <div className={classes.container}>
-      <div className={classes.group} role="group">
-        <Group key="all" id="all" label="ALL" onClick={_ => dispatch({type: 'set', groups: props.groups, value: true})} />
-        <Group key="none" id="none" label="NONE" onClick={_ => dispatch({type: 'set', groups: props.groups, value: false})} />
+      <div id="group-filter-menu" className={classes.group} role="group">
+        <Group key="all" type="multi" label="ALL" onClick={_ => dispatch({type: 'set', groups: props.groups, value: true})} />
+        <Group key="none" type="multi" label="NONE" onClick={_ => dispatch({type: 'set', groups: props.groups, value: false})} />
+        <Group key="select" type="toggler" label="SELECTED" onClick={_ => toggleCollapsed()} />
       </div>
 
-      <div className={classes.group} role="group">
+      <div className={`${classes.group} ${collapsed ? classes.collapsed : ''}`} role="group">
         {buttons}
       </div>
 
