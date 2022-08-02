@@ -1,4 +1,4 @@
 .inline {
   display: flex;
-  flex-direction: row !important;
+  flex-flow: wrap;
 }
