@@ -24,10 +24,17 @@ const Site = (props) => {
   const siteRuns = () => [].concat(...props.pages.map(page => [].concat(...page.tests.map(test => test.runs))))
   const siteErrors = [].concat(...props.pages.map(page => [].concat(...page.tests.map(test => test.errors))))
 
+  const status = <div className={classes.status}>
+    <StatusIndicator status={props.status} tests={testTotal} errors={errorTotal} />
+  </div>
+
   return (
     <div className={`${classes.site} ${props.expandable && classes.expandable}`} aria-current="true" onClick={toggleCollapse}>
       <div className={classes.content}>
-        <h2 className={classes.title}>{props.title}</h2>
+        <div className={classes.title}>
+          <h2>{props.title}</h2>
+          {status}
+        </div>
         <Inline itemClassName={classes.meta}>
           <Iconed icon={Icons.page}>{props.pages.length} page{props.pages.length !== 1 && 's'}</Iconed>
           <Iconed icon={Icons.clock}><DateTimestamp milliseconds={props.timestamp} elapsed={true} text={'{} ago'} altText={'Less than a minute'} /></Iconed>
@@ -47,7 +54,7 @@ const Site = (props) => {
           </div>
         )}
       </div>
-      <StatusIndicator status={props.status} tests={testTotal} errors={errorTotal}/>
+      {status}
     </div>
   )
 }

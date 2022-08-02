@@ -2,12 +2,12 @@
   color: #fff;
   font-size: .85rem;
   font-weight: 600;
-  padding: .35em .85em;
-  margin: .75rem;
-  min-width: 4rem;
-  vertical-align: baseline;
+  vertical-align: middle;
   text-align: center;
   white-space: nowrap;
   display: inline-block;
-  border-radius: 50rem !important;
+  padding: .35rem .85rem;
+  min-width: 4rem;
+  margin: .75rem;
+  border-radius: 50rem;
 }
