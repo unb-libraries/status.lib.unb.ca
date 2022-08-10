@@ -6,8 +6,14 @@ const GroupFilter = props => {
   const [selected, setSelected] = useState('all')
   const [collapsed, setCollasped] = useState(true)
 
+  const filtered = selected === 'all' ? props.children : props.children.filter(child =>
+    child.props.groups.includes(selected)
+  )
+
   return (
     <div className={classes.container}>
+      <div>Displaying {filtered.length} item{filtered.length !== 1 ? 's' : ''}.</div>
+
       <div id="group-filter-menu" className={classes.group} role="group">
         <Group key="select" type="toggler" label="FILTER" selected={!collapsed} onClick={_ => setCollasped(collapsed => !collapsed)} />
       </div>
@@ -19,9 +25,7 @@ const GroupFilter = props => {
         ))}
       </div>
 
-      {selected === 'all' ? props.children : props.children.filter(child =>
-        child.props.groups.includes(selected)
-      )}
+      {filtered}
     </div>
   )
 }
