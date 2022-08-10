@@ -9,7 +9,7 @@ const GroupFilter = props => {
   return (
     <div className={classes.container}>
       <div id="group-filter-menu" className={classes.group} role="group">
-        <Group key="select" type="toggler" label="FILTER" onClick={_ => setCollasped(collapsed => !collapsed)} />
+        <Group key="select" type="toggler" label="FILTER" selected={!collapsed} onClick={_ => setCollasped(collapsed => !collapsed)} />
       </div>
 
       <div className={`${classes.group} ${collapsed ? classes.collapsed : ''}`} role="group">
