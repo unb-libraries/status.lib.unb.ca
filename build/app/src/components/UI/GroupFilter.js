@@ -1,57 +1,26 @@
-import { useReducer, useState } from 'react'
+import { useState } from 'react'
 import Group from './Group'
 import classes from './GroupFilter.module.css'
 
-const set = (groups, selected) => {
-  return Object.fromEntries(groups.map(group => [group, selected]))
-}
-
-const selectionReducer = (state, action) => {
-  switch(action.type) {
-    case 'set':
-      return set(action.groups, action.value)
-    case 'toggle':
-    default:
-      const newState = {...state}
-      newState[action.group] = state.hasOwnProperty(action.group) ? !state[action.group] : true
-      return newState
-  }
-}
-
 const GroupFilter = props => {
-  const [selection, dispatch] = useReducer(selectionReducer, set(props.groups, true))
+  const [selected, setSelected] = useState('all')
   const [collapsed, setCollasped] = useState(true)
-
-  const toggleCollapsed = () => {
-    setCollasped(collapsed => !collapsed)
-  }
-
-  const buttons = props.groups.map(group => {
-    return (
-      <Group
-        key={group}
-        id={group}
-        label={group.toUpperCase()}
-        selected={selection[group] || false}
-        onClick={_ => dispatch({type: 'toggle', group: group})}
-      />
-    )
-  })
 
   return (
     <div className={classes.container}>
       <div id="group-filter-menu" className={classes.group} role="group">
-        <Group key="all" type="multi" label="ALL" onClick={_ => dispatch({type: 'set', groups: props.groups, value: true})} />
-        <Group key="none" type="multi" label="NONE" onClick={_ => dispatch({type: 'set', groups: props.groups, value: false})} />
-        <Group key="select" type="toggler" label="SELECTED" onClick={_ => toggleCollapsed()} />
+        <Group key="select" type="toggler" label="FILTER" onClick={_ => setCollasped(collapsed => !collapsed)} />
       </div>
 
       <div className={`${classes.group} ${collapsed ? classes.collapsed : ''}`} role="group">
-        {buttons}
+        {['all', ...props.groups].map(group => (
+          <Group key={`gf-${group}`} id={`gf-${group}`} label={group.toUpperCase()} selected={selected === group} onClick={_ => setSelected(group)}
+          />
+        ))}
       </div>
 
-      {props.children.filter(child =>
-        child.props.groups.some(group => selection[group])
+      {selected === 'all' ? props.children : props.children.filter(child =>
+        child.props.groups.includes(selected)
       )}
     </div>
   )

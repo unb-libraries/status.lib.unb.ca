@@ -22,7 +22,7 @@
   .group {
     display: inline-flex;
     flex-direction: row;
-    margin: 1rem .5rem;
+    margin: 1rem 0;
   }
 
   .collapsed {
