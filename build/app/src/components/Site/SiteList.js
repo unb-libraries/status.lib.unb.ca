@@ -5,10 +5,10 @@ import Site from './Site'
 import { useSearchParams } from 'react-router-dom'
 import classes from './SiteList.module.css'
 
-const titleSort = (site, anotherSite) => {
+const titleSort = (title, anotherTitle) => {
   const regex = /[^a-z]/
-  const title = site.title.toLowerCase().replace(regex, '')
-  const anotherTitle = anotherSite.title.toLowerCase().replace(regex, '')
+  title = title.toLowerCase().replace(regex, '')
+  anotherTitle = anotherTitle.toLowerCase().replace(regex, '')
   return title > anotherTitle ? 1 : (title < anotherTitle ? -1 : 0)
 }
 
@@ -34,13 +34,13 @@ const SiteList = (props) => {
 
   if (refresh) {
     loadSites().then(sites => {
-      sites.sort(titleSort)
+      sites.sort((site, anotherSite) => titleSort(site.title, anotherSite.title))
       setSites(sites)
       setGroups([].concat(...sites.map(site => {
         return site.groups
       })).filter((group, index, groups) => {
         return groups.indexOf(group) === index
-      }))
+      }).sort(titleSort))
       setRefresh(false)
       setTimeout(() => {
         setRefresh(true)
