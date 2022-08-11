@@ -6,7 +6,10 @@ import { useSearchParams } from 'react-router-dom'
 import classes from './SiteList.module.css'
 
 const titleSort = (site, anotherSite) => {
-  return site.title > anotherSite.title ? 1 : (site.title < anotherSite.title ? -1 : 0)
+  const regex = /[^a-z]/
+  const title = site.title.toLowerCase().replace(regex, '')
+  const anotherTitle = anotherSite.title.toLowerCase().replace(regex, '')
+  return title > anotherTitle ? 1 : (title < anotherTitle ? -1 : 0)
 }
 
 const SiteList = (props) => {
