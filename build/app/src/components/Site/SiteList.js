@@ -48,17 +48,17 @@ const SiteList = (props) => {
     })
   }
 
+  const siteListItems = sites.map(site => 
+    <li key={site.id} groups={site.groups}>
+      <Site id={site.id} title={site.title} url={site.url} timestamp={site.time} pages={site.pages} runs={site.runs} status={site.status} expandable={expandable} />
+    </li>
+  )
+
   return (
     <DynamicLayout>
       {sites.length > 0 &&
         <ul className={classes['site-list']}>
-          <GroupFilter groups={groups}>
-            {sites.map(site => 
-              <li key={site.id} groups={site.groups}>
-                <Site id={site.id} title={site.title} url={site.url} timestamp={site.time} pages={site.pages} runs={site.runs} status={site.status} expandable={expandable} />
-              </li>
-            )}
-          </GroupFilter>
+          {groups.length > 1 ? <GroupFilter groups={groups}>{siteListItems}</GroupFilter> : siteListItems}
         </ul>
       }
       {sites.length <= 0 && <div>{props.emptyMessage}</div>}
