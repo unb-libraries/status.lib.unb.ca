@@ -3,7 +3,7 @@ import Group from './Group'
 import classes from './GroupFilter.module.css'
 
 const GroupFilter = props => {
-  const [selected, setSelected] = useState('all')
+  const [selected, setSelected] = useState(props.groups.includes(props.selected) ? props.selected : 'all')
   const [collapsed, setCollasped] = useState(true)
 
   const filtered = selected === 'all' ? props.children : props.children.filter(child =>

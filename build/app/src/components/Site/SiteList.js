@@ -15,6 +15,7 @@ const titleSort = (title, anotherTitle) => {
 const SiteList = (props) => {
   const [params] = useSearchParams()
   const expandable = ['', '1', 'true'].includes(params.get('expandable'))
+  const filter = params.get('filter')
 
   const [refresh, setRefresh] = useState(true)
   const [sites, setSites] = useState([])
@@ -58,7 +59,7 @@ const SiteList = (props) => {
     <DynamicLayout>
       {sites.length > 0 &&
         <ul className={classes['site-list']}>
-          {groups.length > 1 ? <GroupFilter groups={groups}>{siteListItems}</GroupFilter> : siteListItems}
+          {groups.length > 1 ? <GroupFilter groups={groups} selected={filter}>{siteListItems}</GroupFilter> : siteListItems}
         </ul>
       }
       {sites.length <= 0 && <div>{props.emptyMessage}</div>}
