@@ -12,8 +12,6 @@ const GroupFilter = props => {
 
   return (
     <div className={classes.container}>
-      <div>Displaying {filtered.length} item{filtered.length !== 1 ? 's' : ''}.</div>
-
       <div id="group-filter-menu" className={classes.group} role="group">
         <Group key="select" type="toggler" label="FILTER" selected={!collapsed} onClick={_ => setCollasped(collapsed => !collapsed)} />
       </div>
