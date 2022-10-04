@@ -6,6 +6,7 @@ import DateTimestamp from './DateTimestamp'
 import Icon, { Icons } from '../UI/Icon'
 import Inline from '../UI/Inline'
 import classes from './Site.module.css'
+import SiteTitle from './SiteTitle'
 
 const Site = (props) => {
   const [collapsed, setCollapsed] = useState(true)
@@ -32,7 +33,7 @@ const Site = (props) => {
     <div className={`${classes.site} ${props.expandable && classes.expandable}`} aria-current="true" onClick={toggleCollapse}>
       <div className={classes.content}>
         <div className={classes.title}>
-          <h2>{props.title}</h2>
+          <SiteTitle title={props.title} />
           {status}
         </div>
         <Inline itemClassName={classes.meta}>
@@ -40,14 +41,14 @@ const Site = (props) => {
           <Inline><Icon icon={Icons.clock}/><DateTimestamp milliseconds={props.timestamp} elapsed={true} text={'{} ago'} altText={'Less than a minute'} /></Inline>
           <Inline>
             <Icon icon={props.status === 'passed' ? Icons.arrowUp : Icons.arrowDown} />
-          {siteErrors.length > 0 
-            ? props.status === 'passed'
+            {siteErrors.length > 0 
+              ? props.status === 'passed'
                 ? <DateTimestamp milliseconds={Math.max(...siteErrors.map(error => error.resolved))} elapsed={true} text={'No errors for {}'} altText={'Less than a minute'}/>
                 : <DateTimestamp milliseconds={Math.max(...siteErrors.map(error => error.occurred))} elapsed={true} text={'Failing for {}'} altText={'Less than a minute'}/>
-            : props.status === 'passed'
+              : props.status === 'passed'
                 ? <DateTimestamp milliseconds={Math.min(...siteRuns())} elapsed={true} text={'No errors for at least {}'} altText={'Less than a minute'} />
                 : <DateTimestamp milliseconds={Math.min(...siteRuns())} elapsed={true} text={'Failing for at least {}'} altText={'Less than a minute'} />
-          }
+            }
           </Inline>
         </Inline>
         {(props.expandable && !collapsed) && (

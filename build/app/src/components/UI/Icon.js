@@ -9,13 +9,15 @@ export const Icons = {
   checkYes: 'bi-check-circle-fill',
   checkNo: 'bi-x-circle-fill',
   clock: 'bi-clock',
+  eye: 'bi-eye',
+  eyeSolid: 'bi-eye-fill',
   page: 'bi-file-earmark-text',
   square: 'bi-square-fill'
 }
 
 const Icon = (props) => {
   return (
-      <i className={`${(props.className ?  `${props.className} ` : '')}${classes.icon} ${props.icon}`}></i>
+    <i className={`${(props.className ?  `${props.className} ` : '')}${classes.icon} ${props.icon}`}></i>
   )
 }
 
