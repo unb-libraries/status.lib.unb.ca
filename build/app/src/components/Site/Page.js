@@ -1,4 +1,5 @@
-import Iconed, { Icons } from '../UI/Icon'
+import Icon, { Icons } from '../UI/Icon'
+import Inline from '../UI/Inline'
 import classes from './Page.module.css'
 
 const Page = (props) => {
@@ -8,7 +9,7 @@ const Page = (props) => {
 
   const tests = props.tests.map(test => (
     <li key={test.id} className={classes[test.status === 'passed' ? 'test-passed' : 'test-failed']}>
-      <Iconed icon={test.status === 'passed' ? Icons.checkYes : Icons.checkNo}>{test.title}</Iconed>
+      <Inline><Icon icon={test.status === 'passed' ? Icons.checkYes : Icons.checkNo}/><span>{test.title}</span></Inline>
     </li>
   ))
 

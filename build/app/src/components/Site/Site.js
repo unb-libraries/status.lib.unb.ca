@@ -3,7 +3,7 @@ import PageList from './PageList'
 import StatusIndicator from './StatusIndicator'
 import { useState } from 'react'
 import DateTimestamp from './DateTimestamp'
-import Iconed, { Icons } from '../UI/Icon'
+import Icon, { Icons } from '../UI/Icon'
 import Inline from '../UI/Inline'
 import classes from './Site.module.css'
 
@@ -36,16 +36,19 @@ const Site = (props) => {
           {status}
         </div>
         <Inline itemClassName={classes.meta}>
-          <Iconed icon={Icons.page}>{props.pages.length} page{props.pages.length !== 1 && 's'}</Iconed>
-          <Iconed icon={Icons.clock}><DateTimestamp milliseconds={props.timestamp} elapsed={true} text={'{} ago'} altText={'Less than a minute'} /></Iconed>
+          <Inline><Icon icon={Icons.page}/><span>{props.pages.length} page{props.pages.length !== 1 && 's'}</span></Inline>
+          <Inline><Icon icon={Icons.clock}/><DateTimestamp milliseconds={props.timestamp} elapsed={true} text={'{} ago'} altText={'Less than a minute'} /></Inline>
+          <Inline>
+            <Icon icon={props.status === 'passed' ? Icons.arrowUp : Icons.arrowDown} />
           {siteErrors.length > 0 
             ? props.status === 'passed'
-              ? <Iconed icon={Icons.arrowUp}><DateTimestamp milliseconds={Math.max(...siteErrors.map(error => error.resolved))} elapsed={true} text={'No errors for {}'} altText={'Less than a minute'} /></Iconed>
-              : <Iconed icon={Icons.arrowDown}><DateTimestamp milliseconds={Math.max(...siteErrors.map(error => error.occurred))} elapsed={true} text={'Failing for {}'} altText={'Less than a minute'}/></Iconed>
+                ? <DateTimestamp milliseconds={Math.max(...siteErrors.map(error => error.resolved))} elapsed={true} text={'No errors for {}'} altText={'Less than a minute'}/>
+                : <DateTimestamp milliseconds={Math.max(...siteErrors.map(error => error.occurred))} elapsed={true} text={'Failing for {}'} altText={'Less than a minute'}/>
             : props.status === 'passed'
-              ? <Iconed icon={Icons.arrowUp}><DateTimestamp milliseconds={Math.min(...siteRuns())} elapsed={true} text={'No errors for at least {}'} altText={'Less than a minute'} /></Iconed>
-              : <Iconed icon={Icons.arrowDown}><DateTimestamp milliseconds={Math.min(...siteRuns())} elapsed={true} text={'Failing for at least {}'} altText={'Less than a minute'} /></Iconed>
+                ? <DateTimestamp milliseconds={Math.min(...siteRuns())} elapsed={true} text={'No errors for at least {}'} altText={'Less than a minute'} />
+                : <DateTimestamp milliseconds={Math.min(...siteRuns())} elapsed={true} text={'Failing for at least {}'} altText={'Less than a minute'} />
           }
+          </Inline>
         </Inline>
         {(props.expandable && !collapsed) && (
           <div>

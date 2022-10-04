@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import Iconed, { Icons } from '../UI/Icon'
+import Icon, { Icons } from '../UI/Icon'
 import Tooltip from '../UI/Tooltip'
 import { DateTime, DateTimeFormat, Duration } from '../../helpers/time'
 import classes from './SiteHistoryBarItem.module.css'
@@ -43,7 +43,7 @@ const SiteHistoryBarItem = (props) => {
 
   return (
     <div className={`${tooltipClasses.tooltipTarget} ${classes['site-history-item']} ${classes[status]}`} onClick={e => e.stopPropagation()} onMouseEnter={tooltipToggler.bind(null, true)} onMouseLeave={tooltipToggler.bind(null, false)}>
-      <Iconed icon={Icons.square} />
+      <Icon icon={Icons.square} />
       {tooltipVisible && <Tooltip content={tooltipContent} />}
     </div>
   )

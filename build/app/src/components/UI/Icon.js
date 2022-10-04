@@ -13,13 +13,10 @@ export const Icons = {
   square: 'bi-square-fill'
 }
 
-const Iconed = (props) => {
+const Icon = (props) => {
   return (
-    <React.Fragment>
       <i className={`${(props.className ?  `${props.className} ` : '')}${classes.icon} ${props.icon}`}></i>
-      <span>{props.children}</span>
-    </React.Fragment>
   )
 }
 
-export default Iconed
+export default Icon
