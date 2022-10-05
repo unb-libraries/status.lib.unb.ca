@@ -1,14 +1,15 @@
-import React, { Fragment, useState } from "react"
+import React, { useState } from "react"
+import useMonitor from "../../hooks/useMonitor"
 import EventTarget from "../UI/EventTarget"
 import Icon, { Icons } from '../UI/Icon'
 import Inline from "../UI/Inline"
 
 const SiteTitle = (props) => {
   const [iconVisible, setIconVisible] = useState(false)
-  const [iconSticky, setIconSticky] = useState(false)
+  const [monitored, toggleMonitored] = useMonitor(props.title)
 
   const titleHoverHandler = () => {
-    setIconVisible(visible => !iconSticky ? !visible : visible)
+    setIconVisible(visible => !monitored ? !visible : visible)
   }
 
   const hasPermission = async () => {
@@ -22,15 +23,7 @@ const SiteTitle = (props) => {
   const iconClickHandler = async (event) => {
     event.stopPropagation()
     if (await hasPermission()) {
-      const sites = JSON.parse(localStorage.getItem('monitor')) || []
-      if (!iconSticky) {
-        sites.push(props.title)
-      }
-      else {
-        sites.splice(sites.findIndex(site => site === props.title), 1)
-      }
-      localStorage.setItem('monitor', JSON.stringify(sites))
-      setIconSticky(sticky => !sticky)
+      toggleMonitored()
     }
   }
 
@@ -39,7 +32,7 @@ const SiteTitle = (props) => {
       <Inline>
         <h2>{props.title}</h2>
         <EventTarget click={iconClickHandler}>
-        {(iconVisible || iconSticky) && <Icon icon={iconSticky ? Icons.eyeSolid : Icons.eye} />}
+        {(iconVisible || monitored) && <Icon icon={monitored ? Icons.eyeSolid : Icons.eye} />}
         </EventTarget>
       </Inline>
     </EventTarget>
