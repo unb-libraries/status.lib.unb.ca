@@ -1,3 +1,8 @@
-.monitored {
+.site .icon:not(.monitored) {
+  display: none;
+}
+
+.icon.monitored,
+.site:hover .icon:not(.monitored) {
   display: block !important;
 }

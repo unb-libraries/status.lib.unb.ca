@@ -35,7 +35,7 @@ const SiteMonitor = (props) => {
 
   return (
     <div onClick={clickHandler}>
-      <Icon className={monitored && classes.monitored} icon={monitored ? Icons.eyeSolid : Icons.eye} />
+      <Icon className={`${classes.icon} ${monitored && classes.monitored}`} icon={monitored ? Icons.eyeSolid : Icons.eye} />
     </div>
   )
 }
