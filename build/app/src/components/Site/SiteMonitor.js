@@ -2,7 +2,7 @@ import Icon, { Icons } from "../UI/Icon"
 import useMonitor from "../../hooks/useMonitor"
 import classes from './SiteMonitor.module.css'
 import { SiteStatus } from "../../helpers/siteStats"
-import { useEffect } from "react"
+import useAfterRenderEffect from '../../hooks/useAfterRenderEffect'
 
 const SiteMonitor = (props) => {
   const [monitored, toggleMonitored] = useMonitor(props.id)
@@ -23,7 +23,7 @@ const SiteMonitor = (props) => {
   }
 
   const { status, unresolvedErrors } = props.stats
-  useEffect(() => {
+  useAfterRenderEffect(() => {
     if (monitored) {
       new Notification(props.title, {
         body: status === SiteStatus.FAIL
