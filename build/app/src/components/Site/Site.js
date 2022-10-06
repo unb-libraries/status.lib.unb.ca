@@ -1,9 +1,10 @@
 import StatusIndicator from './StatusIndicator'
 import { useState } from 'react'
 import classes from './Site.module.css'
-import SiteTitle from './SiteTitle'
+import Inline from '../UI/Inline'
 import SiteStats from '../../helpers/siteStats'
 import SiteMeta from './SiteMeta'
+import SiteMonitor from './SiteMonitor'
 
 const Site = (props) => {
   const [collapsed, setCollapsed] = useState(true)
@@ -23,7 +24,10 @@ const Site = (props) => {
     <div className={`${classes.site} ${props.expandable && classes.expandable}`} aria-current="true" onClick={toggleCollapse}>
       <div className={classes.content}>
         <div className={classes.title}>
-          <SiteTitle title={props.title} />
+          <Inline>
+            <h2>{props.title}</h2>
+            <SiteMonitor id={props.id} title={props.title} stats={stats}/>
+          </Inline>
           {status}
         </div>
         <SiteMeta timestamp={props.timestamp} pages={props.pages} stats={stats} collapsed={collapsed} />
