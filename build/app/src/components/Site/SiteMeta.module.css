@@ -1,0 +1,8 @@
+.meta {
+  margin: 0 1rem 0 0;
+  display: flex;
+}
+
+.meta:first-child {
+  margin-left: 0;
+}

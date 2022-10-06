@@ -23,14 +23,7 @@ const SiteList = (props) => {
 
   async function loadSites() {
     const response = await fetch(`/data/${props.dataSource}.json`)
-    return (await response.json()).map(site => {
-      site.status = site.pages.some(
-        page => page.tests.some(
-          test => test.status === 'failed'
-        )
-      ) ? 'failed' : 'passed'
-      return site
-    })
+    return await response.json()
   }
 
   if (refresh) {
@@ -51,7 +44,7 @@ const SiteList = (props) => {
 
   const siteListItems = sites.map(site => 
     <li key={site.id} groups={site.groups}>
-      <Site id={site.id} title={site.title} url={site.url} timestamp={site.time} pages={site.pages} runs={site.runs} status={site.status} expandable={expandable} />
+      <Site id={site.id} title={site.title} url={site.url} timestamp={site.time} pages={site.pages} runs={site.runs} expandable={expandable} />
     </li>
   )
 
