@@ -31,7 +31,7 @@ const Site = (props) => {
           </Inline>
           {status}
         </div>
-        <SiteMeta timestamp={props.timestamp} pages={props.pages} stats={stats} collapsed={collapsed} />
+        <SiteMeta timestamp={props.timestamp} pages={props.pages} stats={stats} url={props.url} collapsed={collapsed} />
       </div>
       {status}
     </div>
