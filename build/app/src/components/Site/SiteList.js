@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import DynamicLayout from '../Layout/DynamicLayout'
 import GroupFilter from '../UI/GroupFilter'
 import Site from './Site'
@@ -16,31 +16,26 @@ const SiteList = (props) => {
   const [params] = useSearchParams()
   const expandable = ['', '1', 'true'].includes(params.get('expandable'))
   const filter = params.get('filter')
-
-  const [refresh, setRefresh] = useState(true)
   const [sites, setSites] = useState([])
-  const [groups, setGroups] = useState([])
 
   async function loadSites() {
     const response = await fetch(`/data/${props.dataSource}.json`)
-    return await response.json()
+    const sites = await response.json()
+    sites.sort((site, anotherSite) => titleSort(site.title, anotherSite.title))
+    return sites
   }
 
-  if (refresh) {
-    loadSites().then(sites => {
-      sites.sort((site, anotherSite) => titleSort(site.title, anotherSite.title))
-      setSites(sites)
-      setGroups([].concat(...sites.map(site => {
-        return site.groups
-      })).filter((group, index, groups) => {
-        return groups.indexOf(group) === index
-      }).sort(titleSort))
-      setRefresh(false)
-      setTimeout(() => {
-        setRefresh(true)
+  useEffect(() => {
+    loadSites().then(sites => setSites(sites))
+    const interval = setInterval(async () => {
+      setSites(await loadSites())
       }, 60000)
-    })
+    return () => {
+      clearInterval(interval)
   }
+  }, [])
+
+  const groups = new Set([...sites.map(site => site.groups)]).sort(titleSort)
 
   const siteListItems = sites.map(site => 
     <li key={site.id} groups={site.groups}>
