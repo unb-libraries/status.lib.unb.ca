@@ -1,7 +1,7 @@
 import StatusIndicator from './StatusIndicator'
 import { useState } from 'react'
 import classes from './Site.module.css'
-import Inline from '../UI/Inline'
+import Inline from '../Main/Inline'
 import SiteStats from '../../helpers/siteStats'
 import SiteMeta from './SiteMeta'
 import SiteMonitor from './SiteMonitor'

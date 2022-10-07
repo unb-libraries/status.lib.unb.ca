@@ -1,5 +1,5 @@
 import Icon, { Icons } from '../UI/Icon'
-import Inline from '../UI/Inline'
+import Inline from '../Main/Inline'
 import classes from './Page.module.css'
 
 const Page = (props) => {

@@ -1,4 +1,3 @@
-import Badge from "../UI/Badge"
 import classes from './StatusIndicator.module.css'
 
 const StatusIndicator = (props) => {
@@ -6,7 +5,7 @@ const StatusIndicator = (props) => {
   const level = [20, 60, 99, 100].find(level => successRate <= level)
   const title = `${props.errors > 0 ? props.errors : 'No'} error${props.errors !== 1 ? 's' : ''}`
 
-  return <Badge className={classes[`status-${level}`]} title={title} />
+  return <span className={`${classes[`status-${level}`]} ${classes.badge}`}>{title}</span>
 }
 
 export default StatusIndicator

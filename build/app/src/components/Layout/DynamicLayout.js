@@ -1,5 +1,5 @@
 import FullLayout from './Full'
-import EmbedLayout from "./Embed"
+import EmbedLayout from './Embed'
 import useConfig from '../../hooks/useConfig'
 
 const DynamicLayout = (props) => {

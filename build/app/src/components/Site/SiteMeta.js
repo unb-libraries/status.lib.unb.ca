@@ -1,7 +1,7 @@
 import React from "react"
-import DateTimestamp from './DateTimestamp'
+import DateTimestamp from '../Misc/DateTimestamp'
 import Icon, { Icons } from '../UI/Icon'
-import Inline from '../UI/Inline'
+import Inline from '../Main/Inline'
 import SiteHistoryBar from './SiteHistoryBar'
 import PageList from './PageList'
 import classes from './SiteMeta.module.css'

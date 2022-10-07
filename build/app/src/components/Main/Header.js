@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import Container from '../UI/Container'
+import Container from './Container'
 import { NavLink } from "react-router-dom"
 import classes from './Header.module.css'
 

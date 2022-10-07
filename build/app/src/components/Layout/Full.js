@@ -1,7 +1,7 @@
 import React from "react"
-import Container from "../UI/Container";
-import Footer from '../UI/Footer';
-import Header from '../UI/Header';
+import Container from '../Main/Container';
+import Footer from '../Main/Footer';
+import Header from '../Main/Header';
 import classes from './Full.module.css'
 
 const Full = (props) => {

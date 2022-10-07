@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react'
-import useConfig from '../hooks/useConfig'
-import DynamicLayout from './Layout/DynamicLayout'
-import GroupFilter from './UI/GroupFilter'
-import loadReports from '../helpers/loadReports'
-import SiteList from './Site/SiteList'
+import DynamicLayout from '../Layout/DynamicLayout'
+import GroupFilter from '../Site/GroupFilter'
+import SiteList from '../Site/SiteList'
+import loadReports from '../../helpers/loadReports'
+import useConfig from '../../hooks/useConfig'
+
 
 const Main = (props) => {
   const reportsUrl = `/data/${props.dataSource}.json`
