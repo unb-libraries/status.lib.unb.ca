@@ -1,11 +1,9 @@
-import { useSearchParams } from 'react-router-dom'
-
 import FullLayout from './Full'
 import EmbedLayout from "./Embed"
+import useConfig from '../../hooks/useConfig'
 
 const DynamicLayout = (props) => {
-  const [params, _] = useSearchParams()
-  const layout = params.get('layout')
+  const { layout } = useConfig()
 
   switch (layout) {
     case 'embed':

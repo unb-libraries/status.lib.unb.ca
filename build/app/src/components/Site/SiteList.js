@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
+import useConfig from '../../hooks/useConfig'
 import DynamicLayout from '../Layout/DynamicLayout'
 import GroupFilter from '../UI/GroupFilter'
 import Site from './Site'
-import { useSearchParams } from 'react-router-dom'
 import classes from './SiteList.module.css'
 
 const titleSort = (title, anotherTitle) => {
@@ -13,9 +13,7 @@ const titleSort = (title, anotherTitle) => {
 }
 
 const SiteList = (props) => {
-  const [params] = useSearchParams()
-  const expandable = ['', '1', 'true'].includes(params.get('expandable'))
-  const filter = params.get('filter')
+  const { expandable, filter } = useConfig()
   const [sites, setSites] = useState([])
 
   async function loadSites() {
@@ -29,10 +27,10 @@ const SiteList = (props) => {
     loadSites().then(sites => setSites(sites))
     const interval = setInterval(async () => {
       setSites(await loadSites())
-      }, 60000)
+    }, 60000)
     return () => {
       clearInterval(interval)
-  }
+    }
   }, [])
 
   const groups = new Set([...sites.map(site => site.groups)]).sort(titleSort)
