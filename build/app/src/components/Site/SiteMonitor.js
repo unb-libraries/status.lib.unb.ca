@@ -11,7 +11,7 @@ const SiteMonitor = (props) => {
     switch (Notification.permission) {
       case 'denied': return false
       case 'granted': return true
-      case 'default': return await Notification.requestPermission(permission => permission)
+      case 'default': return await Notification.requestPermission() === 'granted'
     }
   }
 
