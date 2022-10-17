@@ -6,14 +6,24 @@ import SiteStats from '../../helpers/siteStats'
 import SiteMeta from './SiteMeta'
 import SiteMonitor from './SiteMonitor'
 import monitorClasses from './SiteMonitor.module.css'
+import useMonitor, { Monitor } from '../../hooks/useMonitor'
 
 const Site = (props) => {
   const [collapsed, setCollapsed] = useState(true)
   const stats = SiteStats(props.pages)
+  const [monitored, toggleMonitored] = useMonitor(props.id)
+  const [monitorVisible, setMonitorVisible] = useState(false)
+
 
   const toggleCollapse = () => {
     if (props.expandable) {
       setCollapsed((collapsed) => !collapsed)
+    }
+  }
+
+  const hover = () => {
+    if (monitored !== Monitor.ON) {
+      setMonitorVisible(visible => !visible)
     }
   }
 
@@ -24,10 +34,10 @@ const Site = (props) => {
   return (
     <div className={`${classes.site} ${props.expandable && classes.expandable} ${monitorClasses.site}`} aria-current="true" onClick={toggleCollapse}>
       <div className={classes.content}>
-        <div className={classes.title}>
+        <div className={classes.title} onMouseEnter={hover} onMouseLeave={hover}>
           <Inline>
             <h2>{props.title}</h2>
-            <SiteMonitor id={props.id} title={props.title} stats={stats}/>
+            {(monitorVisible || monitored === Monitor.ON) && <SiteMonitor id={props.id} title={props.title} stats={stats} monitor={[monitored, toggleMonitored]}/>}
           </Inline>
           {status}
         </div>

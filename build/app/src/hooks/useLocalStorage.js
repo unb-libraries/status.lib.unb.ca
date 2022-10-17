@@ -8,10 +8,7 @@ const useLocalStorage = (key, initial = undefined) => {
     localStorage.setItem(key, JSON.stringify(value))
   }
 
-  return {
-    get,
-    set,
-  }
+  return [get, set]
 }
 
 export default useLocalStorage

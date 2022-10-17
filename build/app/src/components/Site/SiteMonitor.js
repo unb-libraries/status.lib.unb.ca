@@ -1,25 +1,25 @@
 import Icon, { Icons } from "../UI/Icon"
-import useMonitor from "../../hooks/useMonitor"
 import classes from './SiteMonitor.module.css'
 import { SiteStatus } from "../../helpers/siteStats"
 import useAfterRenderEffect from '../../hooks/useAfterRenderEffect'
+import { Monitor } from '../../hooks/useMonitor'
 
 const SiteMonitor = (props) => {
-  const [monitored, toggleMonitored] = useMonitor(props.id)
-
-  const hasPermission = async () => {
-    switch (Notification.permission) {
-      case 'denied': return false
-      case 'granted': return true
-      case 'default': return await Notification.requestPermission() === 'granted'
+  const [monitored, toggleMonitored] = props.monitor
+  const iconStyle = ((monitor) => {
+    switch (monitor) {
+      case Monitor.ON:
+        return Icons.eyeSolid
+      case Monitor.OFF:
+      case Monitor.UNKNOWN:
+      default:
+        return Icons.eye
     }
-  }
+  })(monitored)
 
   const clickHandler = async (event) => {
     event.stopPropagation()
-    if (await hasPermission()) {
       toggleMonitored()
-    }
   }
 
   const { status, unresolvedErrors } = props.stats
