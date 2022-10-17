@@ -1,12 +1,8 @@
-.site .icon:not(.monitored) {
-  display: none;
-}
-
-.icon.monitored,
-.site:hover .icon:not(.monitored) {
-  display: block !important;
-}
-
 .icon:hover {
   cursor: pointer;
+}
+
+.icon.disabled {
+  color: var(--grey);
+  cursor: not-allowed;
 }

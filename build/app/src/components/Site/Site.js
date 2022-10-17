@@ -7,12 +7,14 @@ import SiteMeta from './SiteMeta'
 import SiteMonitor from './SiteMonitor'
 import monitorClasses from './SiteMonitor.module.css'
 import useMonitor, { Monitor } from '../../hooks/useMonitor'
+import useConfig from '../../hooks/useConfig'
 
 const Site = (props) => {
   const [collapsed, setCollapsed] = useState(true)
   const stats = SiteStats(props.pages)
   const [monitored, toggleMonitored] = useMonitor(props.id)
   const [monitorVisible, setMonitorVisible] = useState(false)
+  const { monitor } = useConfig()
 
 
   const toggleCollapse = () => {
@@ -37,7 +39,7 @@ const Site = (props) => {
         <div className={classes.title} onMouseEnter={hover} onMouseLeave={hover}>
           <Inline>
             <h2>{props.title}</h2>
-            {(monitorVisible || monitored === Monitor.ON) && <SiteMonitor id={props.id} title={props.title} stats={stats} monitor={[monitored, toggleMonitored]}/>}
+            {(monitor && (monitorVisible || monitored === Monitor.ON)) && <SiteMonitor id={props.id} title={props.title} stats={stats} monitor={[monitored, toggleMonitored]}/>}
           </Inline>
           {status}
         </div>

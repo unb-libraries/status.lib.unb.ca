@@ -8,6 +8,8 @@ const SiteMonitor = (props) => {
   const [monitored, toggleMonitored] = props.monitor
   const iconStyle = ((monitor) => {
     switch (monitor) {
+      case Monitor.DISABLED:
+        return Icons.eyeDisabled
       case Monitor.ON:
         return Icons.eyeSolid
       case Monitor.OFF:
@@ -19,7 +21,7 @@ const SiteMonitor = (props) => {
 
   const clickHandler = async (event) => {
     event.stopPropagation()
-      toggleMonitored()
+    toggleMonitored()
   }
 
   const { status, unresolvedErrors } = props.stats
@@ -35,7 +37,7 @@ const SiteMonitor = (props) => {
 
   return (
     <div onClick={clickHandler}>
-      <Icon className={`${classes.icon} ${monitored && classes.monitored}`} icon={monitored ? Icons.eyeSolid : Icons.eye} />
+      <Icon className={`${classes.icon} ${monitored === Monitor.DISABLED && classes.disabled}`} icon={iconStyle} />
     </div>
   )
 }

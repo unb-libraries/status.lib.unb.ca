@@ -11,6 +11,7 @@ export const Icons = {
   clock: 'bi-clock',
   eye: 'bi-eye',
   eyeSolid: 'bi-eye-fill',
+  eyeDisabled: 'bi-eye-slash',
   page: 'bi-file-earmark-text',
   square: 'bi-square-fill'
 }
