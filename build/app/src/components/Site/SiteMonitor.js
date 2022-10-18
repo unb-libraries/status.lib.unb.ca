@@ -3,6 +3,7 @@ import classes from './SiteMonitor.module.css'
 import { SiteStatus } from "../../helpers/siteStats"
 import useAfterRenderEffect from '../../hooks/useAfterRenderEffect'
 import { Monitor } from '../../hooks/useMonitor'
+import { sendNotification } from "../../helpers/notification"
 
 const SiteMonitor = (props) => {
   const [monitored, toggleMonitored] = props.monitor
@@ -27,7 +28,7 @@ const SiteMonitor = (props) => {
   const { status, unresolvedErrors } = props.stats
   useAfterRenderEffect(() => {
     if (monitored) {
-      new Notification(props.title, {
+      sendNotification(props.title, {
         body: status === SiteStatus.FAIL
           ? `${unresolvedErrors} error${unresolvedErrors !== 1 ? 's' : ''}`
           : 'All errors resolved.'

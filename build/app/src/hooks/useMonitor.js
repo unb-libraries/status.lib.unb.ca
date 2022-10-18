@@ -1,11 +1,6 @@
 import { useCallback, useEffect, useState } from "react"
 import useLocalStorage from "./useLocalStorage"
-
-const Permission = {
-  DENIED: 1,
-  UNKNOWN: 2,
-  GRANTED: 4,
-}
+import { Permission, getPermission } from "../helpers/notification"
 
 export const Monitor = {
   DISABLED: 1,
@@ -19,20 +14,6 @@ const useMonitor = (site) => {
   const [status, setStatus] = useState(Monitor.UNKNOWN)
 
   const getSites = useCallback(() => load(), [load])
-
-  const getPermission = useCallback(async (force = false) => {
-    switch (Notification.permission) {
-      case 'denied': return Permission.DENIED
-      case 'granted': return Permission.GRANTED
-      case 'default':
-      default:
-        return !force 
-        ? Permission.UNKNOWN
-        : await Notification.requestPermission() === 'granted'
-          ? Permission.GRANTED
-          : Permission.DENIED
-    }
-  }, [])
 
   const getStatus = useCallback(async (force = false) => {
     const permission = await getPermission(force)
@@ -50,7 +31,7 @@ const useMonitor = (site) => {
       default:
         return Monitor.UNKNOWN
     }
-  }, [getPermission, site, getSites, status])
+  }, [site, getSites, status])
 
   useEffect(() => {
     (async () => {
