@@ -7,6 +7,7 @@ const GroupFilter = props => {
 
   const selectGroup = (group) => {
     props.onSelect(group)
+    setCollasped(collapsed => !collapsed)
   }
 
   return (
