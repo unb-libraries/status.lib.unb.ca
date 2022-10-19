@@ -9,7 +9,7 @@ const Full = (props) => {
     <div className={classes.main}>
       <Header />
       <Container>
-        <h1>Systems & Services</h1>
+        <h1>Systems & Services Status</h1>
         <noscript>You need to enable JavaScript to run this app.</noscript>
         {props.children}
       </Container>
