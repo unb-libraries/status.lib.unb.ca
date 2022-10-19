@@ -31,7 +31,7 @@
   color: var(--white);
 }
 
-@media (min-width: 992px) {
+@media (min-width: 930px) {
   .filter {
     border-right: 0;
     border-top: var(--border);

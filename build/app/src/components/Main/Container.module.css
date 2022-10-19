@@ -16,9 +16,9 @@
   }
 }
 
-@media (min-width: 992px) {
+@media (min-width: 930px) {
   .container {
-    max-width: 960px;
+    max-width: 876px;
   }
 }
 

@@ -44,7 +44,7 @@
   vertical-align: text-bottom;
 }
 
-@media (min-width: 992px) {
+@media (min-width: 930px) {
   .status {
     display: block;
   }
