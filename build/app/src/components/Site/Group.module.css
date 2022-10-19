@@ -1,6 +1,7 @@
 .filter {
   --border-color: var(--black);
   --border: 1px solid var(--border-color);
+  --border-radius: .5rem;
   background-color: transparent;
   border: var(--border);
   border-top: 0;
@@ -16,6 +17,13 @@
 
 .filter:first-child {
   border-top: var(--border);
+  border-top-left-radius: var(--border-radius);
+  border-top-right-radius: var(--border-radius);
+}
+
+.filter:last-child {
+  border-bottom-left-radius: var(--border-radius);
+  border-bottom-right-radius: var(--border-radius);
 }
 
 .active {
@@ -29,9 +37,18 @@
     border-top: var(--border);
   }
 
+  .filter:first-child {
+    border-top-left-radius: var(--border-radius);
+    border-top-right-radius: 0;
+    border-bottom-left-radius: var(--border-radius);
+  }
+
   .filter:last-child,
   [data-type="multi"]:nth-child(2) {
     border-right: var(--border);
+    border-top-right-radius: var(--border-radius);
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: var(--border-radius);
   }
 
   [data-type="toggler"] {
