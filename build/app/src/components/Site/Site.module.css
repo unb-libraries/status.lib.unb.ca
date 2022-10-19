@@ -5,6 +5,7 @@
   color: #212529;
   text-decoration: none;
   border: 1px solid rgba(0,0,0,.125);
+  border-radius: var(--border-radius);
   margin: .15rem 0;
   background-color: var(--almost-white);
   justify-content: space-between !important;

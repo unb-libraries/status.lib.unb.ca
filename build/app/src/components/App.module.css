@@ -9,6 +9,7 @@
   --grey: #b9b9b9;
   --dark-grey: #282828;
   --black: #000;
+  --border-radius: .25rem;
 }
 
 body {
