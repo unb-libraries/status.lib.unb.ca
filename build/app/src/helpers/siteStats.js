@@ -16,7 +16,7 @@ const SiteStats = (pages) => {
   
   const failures = unresolvedErrors.length
   const failingSince = unresolvedErrors.length > 0
-    ? Math.max(...unresolvedErrors.map(error => error.occurred))
+    ? Math.min(...unresolvedErrors.map(error => error.occurred))
     : false
   const passingSince = resolvedErrors.length > 0
     ? resolvedErrors.reduce((latest, error) => latest.resolved > error.resolved ? latest : error, resolvedErrors[0]).resolved
