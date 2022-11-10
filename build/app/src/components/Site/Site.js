@@ -2,7 +2,6 @@ import StatusIndicator from './StatusIndicator'
 import { useState } from 'react'
 import classes from './Site.module.css'
 import Inline from '../Main/Inline'
-import SiteStats from '../../helpers/siteStats'
 import SiteMeta from './SiteMeta'
 import SiteMonitor from './SiteMonitor'
 import monitorClasses from './SiteMonitor.module.css'
@@ -11,7 +10,6 @@ import useConfig from '../../hooks/useConfig'
 
 const Site = (props) => {
   const [collapsed, setCollapsed] = useState(true)
-  const stats = SiteStats(props.pages)
   const [monitored, toggleMonitored] = useMonitor(props.id)
   const [monitorVisible, setMonitorVisible] = useState(false)
   const { monitor } = useConfig()
@@ -29,8 +27,9 @@ const Site = (props) => {
     }
   }
 
-  const status = <div className={classes.status}>
-    <StatusIndicator id={props.id} title={props.title} status={stats.status} tests={stats.tests.length} errors={stats.failures} />
+  const { status, tests, failures} = props.stats
+  const statusIndicator = <div className={classes.status}>
+    <StatusIndicator id={props.id} title={props.title} status={status} tests={tests.length} errors={failures} />
   </div>
 
   return (
@@ -39,13 +38,13 @@ const Site = (props) => {
         <div className={classes.title} onMouseEnter={hover} onMouseLeave={hover}>
           <Inline>
             <h2>{props.title}</h2>
-            {(monitor && (monitorVisible || monitored === Monitor.ON)) && <SiteMonitor id={props.id} title={props.title} stats={stats} monitor={[monitored, toggleMonitored]}/>}
+            {(monitor && (monitorVisible || monitored === Monitor.ON)) && <SiteMonitor id={props.id} title={props.title} stats={props.stats} monitor={[monitored, toggleMonitored]}/>}
           </Inline>
-          {status}
+          {statusIndicator}
         </div>
-        <SiteMeta timestamp={props.timestamp} pages={props.pages} stats={stats} url={props.url} collapsed={collapsed} />
+        <SiteMeta timestamp={props.timestamp} pages={props.pages} stats={props.stats} url={props.url} collapsed={collapsed} />
       </div>
-      {status}
+      {statusIndicator}
     </div>
   )
 }

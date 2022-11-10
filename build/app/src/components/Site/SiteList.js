@@ -12,7 +12,7 @@ const SiteList = (props) => {
         <ul className={classes['site-list']}>
           {props.sites.map(site => 
             <li key={site.id} groups={site.groups}>
-              <Site id={site.id} title={site.title} url={site.url} timestamp={site.time} pages={site.pages} runs={site.runs} expandable={expandable} />
+              <Site id={site.id} title={site.title} url={site.url} timestamp={site.time} pages={site.pages} runs={site.runs} stats={site.stats} expandable={expandable} />
             </li>
           )}
         </ul>

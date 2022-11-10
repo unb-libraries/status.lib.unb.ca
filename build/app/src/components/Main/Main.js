@@ -1,25 +1,36 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import DynamicLayout from '../Layout/DynamicLayout'
 import GroupFilter from '../Site/GroupFilter'
 import SiteList from '../Site/SiteList'
 import loadReports from '../../helpers/loadReports'
+import SiteStats from '../../helpers/siteStats'
 import useConfig from '../../hooks/useConfig'
 
 
 const Main = (props) => {
-  const reportsUrl = `/data/${props.dataSource}.json`
+  const reportsUrl = '/data/reports.json'
   const [reports, setReports] = useState({sites: [], groups: []})
   const [group, setGroup] = useState(useConfig().filter)
+  
+  const mapReports = useCallback((reports) => {
+    setReports({
+      sites: reports.sites.map(report => ({
+        ...report,
+        stats: SiteStats(report.pages),
+      })),
+      groups: reports.groups,
+    })
+  }, [])
 
   useEffect(() => {
-    loadReports(reportsUrl).then(reports => setReports(reports))
-    const interval = setInterval(async () => {
-      setReports(await loadReports(reportsUrl))
+    loadReports(reportsUrl).then(mapReports)
+    const interval = setInterval(() => {
+      loadReports(reportsUrl).then(mapReports)
     }, 60000)
     return () => {
       clearInterval(interval)
     }
-  }, [])
+  }, [mapReports])
 
   const filterByGroup = (sites, group) => {
     return sites.filter(site => group === 'all' || site.groups.includes(group))
