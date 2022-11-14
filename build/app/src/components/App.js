@@ -7,8 +7,7 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={
-          <Main key="default" dataSource='reports' emptyMessage="No status reports available." />} />
+        <Route path='/' element={<Main key="default" />} />
       </Routes>
     </BrowserRouter>
   );

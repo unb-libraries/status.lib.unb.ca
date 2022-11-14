@@ -17,7 +17,7 @@ const SiteList = (props) => {
           )}
         </ul>
       )}
-      {props.sites.length === 0 && <div>{props.emptyMessage}</div>}
+      {props.sites.length === 0 && <div>No reports to display.</div>}
     </React.Fragment>
   )
   

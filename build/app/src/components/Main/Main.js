@@ -54,7 +54,7 @@ const Main = (props) => {
   return (
     <DynamicLayout>
       {reports.groups.length > 1 && <GroupFilter groups={['all', ...reports.groups]} selected={group} onSelect={group => setGroup(group)}/>}
-      <SiteList sites={sites} emptyMessage={props.emptyMessage} />
+      <SiteList sites={sites} />
     </DynamicLayout>
   )
 }
