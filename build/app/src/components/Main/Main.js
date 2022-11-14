@@ -10,7 +10,9 @@ import useConfig from '../../hooks/useConfig'
 const Main = (props) => {
   const reportsUrl = '/data/reports.json'
   const [reports, setReports] = useState({sites: [], groups: []})
-  const [group, setGroup] = useState(useConfig().filter)
+
+  const { group: defaultGroup } = useConfig()
+  const [group, setGroup] = useState(defaultGroup)
   
   const mapReports = useCallback((reports) => {
     setReports({
@@ -32,14 +34,15 @@ const Main = (props) => {
     }
   }, [mapReports])
 
-  const filterByGroup = (sites, group) => {
-    return sites.filter(site => group === 'all' || site.groups.includes(group))
+  let sites = reports.sites
+  if (group !== 'all') {
+    sites = sites.filter(site => site.groups.includes(group))
   }
 
   return (
     <DynamicLayout>
       {reports.groups.length > 1 && <GroupFilter groups={['all', ...reports.groups]} selected={group} onSelect={group => setGroup(group)}/>}
-      <SiteList sites={filterByGroup(reports.sites, group)} emptyMessage={props.emptyMessage} />
+      <SiteList sites={sites} emptyMessage={props.emptyMessage} />
     </DynamicLayout>
   )
 }
