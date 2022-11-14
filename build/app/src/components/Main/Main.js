@@ -11,7 +11,7 @@ const Main = (props) => {
   const reportsUrl = '/data/reports.json'
   const [reports, setReports] = useState({sites: [], groups: []})
 
-  const { group: defaultGroup, status } = useConfig()
+  const { group: defaultGroup, status, failedWithin } = useConfig()
   const [group, setGroup] = useState(defaultGroup)
   
   const mapReports = useCallback((reports) => {
@@ -40,6 +40,15 @@ const Main = (props) => {
   }
   if (status !== 'all') {
     sites = sites.filter(site => site.stats.status === status)
+  }
+  if (failedWithin) {
+    const failedSince = Date.now() - failedWithin
+    sites = sites.filter(site => site.pages
+      .filter(page => page.tests
+        .filter(test => test.errors
+          .filter(error => {
+            return !error.resolved || error.resolved >= failedSince
+          }).length).length).length)
   }
 
   return (
