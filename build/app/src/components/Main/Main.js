@@ -11,7 +11,7 @@ const Main = (props) => {
   const reportsUrl = '/data/reports.json'
   const [reports, setReports] = useState({sites: [], groups: []})
 
-  const { group: defaultGroup } = useConfig()
+  const { group: defaultGroup, status } = useConfig()
   const [group, setGroup] = useState(defaultGroup)
   
   const mapReports = useCallback((reports) => {
@@ -37,6 +37,9 @@ const Main = (props) => {
   let sites = reports.sites
   if (group !== 'all') {
     sites = sites.filter(site => site.groups.includes(group))
+  }
+  if (status !== 'all') {
+    sites = sites.filter(site => site.stats.status === status)
   }
 
   return (
