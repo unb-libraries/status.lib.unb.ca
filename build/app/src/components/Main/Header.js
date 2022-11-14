@@ -11,11 +11,13 @@ const Header = () => {
     setCollapsed((collapsed) => !collapsed)
   }
 
-  const params = window.location.search.substring(1).split('&').reduce((params, param) => {
-    const [key, value] = param.split('=')
-    params[key] = value
-    return params
-  }, {})
+  const params = window.location.search
+    ? window.location.search.substring(1).split('&').reduce((params, param) => {
+      const [key, value] = param.split('=')
+      params[key] = value
+      return params
+    }, {})
+    : {}
 
   let allParams = {...params}
   delete allParams.status
