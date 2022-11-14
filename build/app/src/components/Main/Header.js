@@ -11,12 +11,29 @@ const Header = () => {
     setCollapsed((collapsed) => !collapsed)
   }
 
+  const params = window.location.search.substring(1).split('&').reduce((params, param) => {
+    const [key, value] = param.split('=')
+    params[key] = value
+    return params
+  }, {})
+
+  let allParams = {...params}
+  delete allParams.status
+  delete allParams.failedWithin
+  let erroredParams = {...params}
+  erroredParams.status = 'failed'
+  delete erroredParams.failedWithin
+  let recentlyErroredParams = {...params}
+  delete recentlyErroredParams.status
+  recentlyErroredParams.failedWithin = 24 * 60 * 60 * 1000
+
+  const toQueryString = (params) => Object.entries(params).reduce((str, [key, value]) => `${str}${!str ? '?' : '&'}${key}=${value}`, '')
   const links = {
-    '/': 'All',
-    '/errored': 'Errored',
-    '/recently-errored': 'Recently Errored',
+    [`/${toQueryString(allParams)}`]: 'All',
+    [`/${toQueryString(erroredParams)}`]: 'Errored',
+    [`/${toQueryString(recentlyErroredParams)}`]: 'Recently Errored',
   }
-  
+
   return (
     <header>
       <Container>
@@ -29,7 +46,7 @@ const Header = () => {
             <ul className={collapsed ? classes.collapsed : ''}>
               {Object.entries(links).map(([path, label]) => 
                 <li key={path} className={classes['nav-item']}>
-                  <NavLink to={`${path}${window.location.search}`} className={({ isActive }) => isActive ? classes.active : ''} aria-current="page">{label}</NavLink>
+                  <NavLink to={path} className={({ isActive }) => isActive ? classes.active : ''} aria-current="page">{label}</NavLink>
                 </li>)}
             </ul>
           </div>
