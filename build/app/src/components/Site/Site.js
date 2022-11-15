@@ -4,7 +4,6 @@ import classes from './Site.module.css'
 import Inline from '../Main/Inline'
 import SiteMeta from './SiteMeta'
 import SiteMonitor from './SiteMonitor'
-import monitorClasses from './SiteMonitor.module.css'
 import useMonitor, { Monitor } from '../../hooks/useMonitor'
 import useConfig from '../../hooks/useConfig'
 
@@ -33,7 +32,7 @@ const Site = (props) => {
   </div>
 
   return (
-    <div className={`${classes.site} ${props.expandable && classes.expandable} ${monitorClasses.site}`} aria-current="true" onClick={toggleCollapse}>
+    <div className={`${classes.site} ${props.expandable ? classes.expandable : ''}`} aria-current="true" onClick={toggleCollapse}>
       <div className={classes.content}>
         <div className={classes.title} onMouseEnter={hover} onMouseLeave={hover}>
           <Inline>

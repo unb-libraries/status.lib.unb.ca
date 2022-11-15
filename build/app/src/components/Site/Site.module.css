@@ -8,7 +8,6 @@
   border-radius: var(--border-radius);
   margin: .15rem 0;
   background-color: var(--almost-white);
-  justify-content: space-between !important;
   align-items: flex-start !important;
 }
 
@@ -25,6 +24,7 @@
   font-weight: normal;
   color: #900;
   display: flex;
+  justify-content: space-between;
 }
 
 .title h2 {
