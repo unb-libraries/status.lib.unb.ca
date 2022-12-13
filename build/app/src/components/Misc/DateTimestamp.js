@@ -10,7 +10,15 @@ const DateTimestamp = (props) => {
     : DateTime.fromTimestamp(props.milliseconds)
 
   let formatted = datetime.format()
-  const tooltipContent = formatted
+  
+  let tooltipContent
+  if (props.tooltip) {
+    tooltipContent = props.tooltip.replace('{}', formatted)
+  }
+  else {
+    tooltipContent = formatted
+  }
+
   if (props.elapsed) {
     formatted = Interval
       .untilNow(datetime)
